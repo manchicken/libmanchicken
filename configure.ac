@@ -13,9 +13,7 @@ AM_PROG_AR
 AC_PROG_RANLIB
 
 # Checks for libraries.
-# FIXME: Replace `main' with a function in `-lc':
 AC_CHECK_LIB([c], [strcmp])
-# FIXME: Replace `main' with a function in `-lcunit':
 AC_CHECK_LIB([cunit], [CU_assertImplementation])
 
 # Checks for header files.

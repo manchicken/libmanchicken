@@ -3952,7 +3952,6 @@ fi
 
 
 # Checks for libraries.
-# FIXME: Replace `main' with a function in `-lc':
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for strcmp in -lc" >&5
 $as_echo_n "checking for strcmp in -lc... " >&6; }
 if ${ac_cv_lib_c_strcmp+:} false; then :
@@ -3998,7 +3997,6 @@ _ACEOF
 
 fi
 
-# FIXME: Replace `main' with a function in `-lcunit':
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for CU_assertImplementation in -lcunit" >&5
 $as_echo_n "checking for CU_assertImplementation in -lcunit... " >&6; }
 if ${ac_cv_lib_cunit_CU_assertImplementation+:} false; then :

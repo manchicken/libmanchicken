@@ -1,5 +1,5 @@
 # what flags you want to pass to the C compiler & linker
-AM_CFLAGS = --pedantic -Wall -std=c99 -ggdb3 -I../include
+AM_CFLAGS = --pedantic -Wall -std=c99 -ggdb3 -I../src
 AM_LDFLAGS = -lc -L../src -lmanchicken
 # LDADD = ../lib/libmanchicken.a
 
