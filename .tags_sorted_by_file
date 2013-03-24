@@ -1,0 +1,60 @@
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+AR	Makefile	/^AR = ar -cr$/;"	m
+CC	Makefile	/^CC = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -fPIC -ggdb3 -I$(INCDIR) -Wall$/;"	m
+INCDIR	Makefile	/^INCDIR = .\/include$/;"	m
+LIBDIR	Makefile	/^LIBDIR = .\/lib$/;"	m
+LIBMANCHICKEN_OBJS	Makefile	/^LIBMANCHICKEN_OBJS = \\$/;"	m
+LIBMANCHICKEN_SRCS	Makefile	/^LIBMANCHICKEN_SRCS = \\$/;"	m
+LIBS	Makefile	/^LIBS = \\$/;"	m
+OBJDIR	Makefile	/^OBJDIR = .\/obj$/;"	m
+RANLIB	Makefile	/^RANLIB = ranlib$/;"	m
+RM	Makefile	/^RM = rm -f$/;"	m
+SRCDIR	Makefile	/^SRCDIR = .\/src$/;"	m
+TESTDIR	Makefile	/^TESTDIR = .\/t$/;"	m
+TESTOBJDIR	Makefile	/^TESTOBJDIR = .\/t\/obj$/;"	m
+TESTS	Makefile	/^TESTS = \\$/;"	m
+TESTS_LDFLAGS	Makefile	/^TESTS_LDFLAGS = -L$(LIBDIR) -lc -lcunit -lmanchicken$/;"	m
+TESTS_OBJS	Makefile	/^TESTS_OBJS = \\$/;"	m
+TESTS_SRCS	Makefile	/^TESTS_SRCS = \\$/;"	m
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+INITIAL_MUTABLE_STRING_ALLOCATION	include/mutable_string.h	/^	#define INITIAL_MUTABLE_STRING_ALLOCATION	/;"	d
+MAXIMUM_MUTABLE_STRING_SIZE	include/mutable_string.h	/^	#define MAXIMUM_MUTABLE_STRING_SIZE	/;"	d
+MUTSTR	include/mutable_string.h	/^#define MUTSTR(/;"	d
+__MUTABLE_STRING_H__	include/mutable_string.h	/^#define __MUTABLE_STRING_H__$/;"	d
+_data_size	include/mutable_string.h	/^	size_t _data_size;$/;"	m	struct:__anon1
+data	include/mutable_string.h	/^	char *data;$/;"	m	struct:__anon1
+is_empty	include/mutable_string.h	/^	char is_empty;$/;"	m	struct:__anon1
+length	include/mutable_string.h	/^	int length;$/;"	m	struct:__anon1
+mutable_string_t	include/mutable_string.h	/^} mutable_string_t;$/;"	t	typeref:struct:__anon1
+_calculate_new_size	src/mutable_string.c	/^inline size_t _calculate_new_size(size_t str_length) {$/;"	f
+mutable_string_append	src/mutable_string.c	/^mutable_string_t* mutable_string_append(mutable_string_t *dest, const char *src) {$/;"	f
+mutable_string_assign	src/mutable_string.c	/^mutable_string_t* mutable_string_assign(mutable_string_t *dest, const char *src) {$/;"	f
+mutable_string_copy	src/mutable_string.c	/^mutable_string_t* mutable_string_copy(mutable_string_t *dest, mutable_string_t *src)$/;"	f
+mutable_string_free	src/mutable_string.c	/^void mutable_string_free(mutable_string_t *target) {$/;"	f
+mutable_string_get_data	src/mutable_string.c	/^char* mutable_string_get_data(mutable_string_t *var) {$/;"	f
+mutable_string_get_length	src/mutable_string.c	/^int mutable_string_get_length(mutable_string_t *var) {$/;"	f
+mutable_string_init	src/mutable_string.c	/^mutable_string_t* mutable_string_init(mutable_string_t *target) {$/;"	f
+mutable_string_init_with_value	src/mutable_string.c	/^mutable_string_t* mutable_string_init_with_value(mutable_string_t *target, const char *value) {$/;"	f
+mutable_string_is_empty	src/mutable_string.c	/^short mutable_string_is_empty(mutable_string_t *var) {$/;"	f
+mutable_string_resize	src/mutable_string.c	/^mutable_string_t* mutable_string_resize(mutable_string_t* target, size_t new_size)$/;"	f
+ADD_TEST	t/t_mutable_string.c	/^#define ADD_TEST(/;"	d	file:
+TEST_APPEND_HEAD	t/t_mutable_string.c	/^#define TEST_APPEND_HEAD /;"	d	file:
+TEST_APPEND_TAIL	t/t_mutable_string.c	/^#define TEST_APPEND_TAIL /;"	d	file:
+TEST_APPEND_WHOLE	t/t_mutable_string.c	/^#define TEST_APPEND_WHOLE /;"	d	file:
+TEST_STR_1	t/t_mutable_string.c	/^#define TEST_STR_1 /;"	d	file:
+TEST_STR_TRUNC	t/t_mutable_string.c	/^#define TEST_STR_TRUNC /;"	d	file:
+TEST_STR_TRUNC_LEN	t/t_mutable_string.c	/^#define TEST_STR_TRUNC_LEN /;"	d	file:
+clean_mutable_string_suite	t/t_mutable_string.c	/^int clean_mutable_string_suite(void) {$/;"	f
+init_mutable_string_suite	t/t_mutable_string.c	/^int init_mutable_string_suite(void) {$/;"	f
+main	t/t_mutable_string.c	/^int main(void) {$/;"	f
+t_mutable_string_append	t/t_mutable_string.c	/^void t_mutable_string_append(void) {$/;"	f
+t_mutable_string_assign	t/t_mutable_string.c	/^void t_mutable_string_assign(void) {$/;"	f
+t_mutable_string_copy	t/t_mutable_string.c	/^void t_mutable_string_copy(void) {$/;"	f
+t_mutable_string_init	t/t_mutable_string.c	/^void t_mutable_string_init(void) {$/;"	f
+t_mutable_string_init_with_value	t/t_mutable_string.c	/^void t_mutable_string_init_with_value(void) {$/;"	f
+t_mutable_string_resize	t/t_mutable_string.c	/^void t_mutable_string_resize(void) {$/;"	f
