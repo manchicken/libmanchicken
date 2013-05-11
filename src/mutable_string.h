@@ -38,6 +38,7 @@ typedef struct {
 	char is_empty;
 } mutable_string_t;
 #define MUTSTR(X) mutable_string_get_data(X)
+#define MUTLEN(X) mutable_string_get_length(X)
 
 mutable_string_t* mutable_string_init(mutable_string_t *target);
 mutable_string_t* mutable_string_init_with_value(mutable_string_t *target, const char *value);

@@ -5,5 +5,6 @@ AM_LDFLAGS = -lc -L../src -lmanchicken
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
-noinst_PROGRAMS = t_mutable_string
+noinst_PROGRAMS = t_mutable_string t_findbin
 t_mutable_string_SOURCES = t_mutable_string.c
+t_findbin_SOURCES = t_findbin.c
