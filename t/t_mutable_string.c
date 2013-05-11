@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <mutable_string.h>
+#include <manchicken.h>
 
 #include <CUnit/Basic.h>
 // #include <CUnit/Console.h>

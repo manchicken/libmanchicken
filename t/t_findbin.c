@@ -18,8 +18,7 @@
 */
 
 #include <stdio.h>
-#include <findbin.h>
-#include <mutable_string.h>
+#include <manchicken.h>
 #include <CUnit/Basic.h>
 
 #define ADD_TEST(X) do { if (!X) { CU_cleanup_registry();return CU_get_error(); } } while (0)

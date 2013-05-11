@@ -250,7 +250,7 @@ top_srcdir = @top_srcdir@
 AM_CFLAGS = --pedantic -Wall -std=c99 -O2
 AM_LDFLAGS = -lc
 lib_LIBRARIES = libmanchicken.a
-include_HEADERS = mutable_string.h findbin.h
+include_HEADERS = mutable_string.h findbin.h manchicken.h
 libmanchicken_a_SOURCES = mutable_string.c findbin.c
 all: all-am
 
