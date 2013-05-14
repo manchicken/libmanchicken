@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"mutable_string_get",
+				"mutable_string_get_length"
+			],
+			[
 				"lib",
 				"libmanchicken"
 			],
@@ -427,7 +431,7 @@
 			"file": "/Users/manchicken/Documents/Devel/libmanchicken/Makefile",
 			"settings":
 			{
-				"buffer_size": 1876,
+				"buffer_size": 23439,
 				"line_ending": "Unix"
 			}
 		},
@@ -435,15 +439,15 @@
 			"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/mutable_string.c",
 			"settings":
 			{
-				"buffer_size": 3772,
+				"buffer_size": 4096,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/Users/manchicken/Documents/Devel/libmanchicken/include/mutable_string.h",
+			"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/findbin.c",
 			"settings":
 			{
-				"buffer_size": 1976,
+				"buffer_size": 2063,
 				"line_ending": "Unix"
 			}
 		},
@@ -451,7 +455,55 @@
 			"file": "/Users/manchicken/Documents/Devel/libmanchicken/t/t_mutable_string.c",
 			"settings":
 			{
-				"buffer_size": 2764,
+				"buffer_size": 5013,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/manchicken/Documents/Devel/libmanchicken/t/t_findbin.c",
+			"settings":
+			{
+				"buffer_size": 1882,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/manchicken.h",
+			"settings":
+			{
+				"buffer_size": 890,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/findbin.h",
+			"settings":
+			{
+				"buffer_size": 912,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/mutable_string.h",
+			"settings":
+			{
+				"buffer_size": 1970,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/Makefile.am",
+			"settings":
+			{
+				"buffer_size": 259,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/manchicken/Documents/Devel/libmanchicken/README.md",
+			"settings":
+			{
+				"buffer_size": 755,
 				"line_ending": "Unix"
 			}
 		}
@@ -462,6 +514,10 @@
 		"height": 87.0,
 		"selected_items":
 		[
+			[
+				"project",
+				"Project: Close"
+			],
 			[
 				"close",
 				"Project: Close"
@@ -559,7 +615,7 @@
 				"Project: Add Folder"
 			]
 		],
-		"width": 449.0
+		"width": 575.0
 	},
 	"console":
 	{
@@ -576,6 +632,15 @@
 	},
 	"file_history":
 	[
+		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/FEF52683-42DB-411D-BED1-CB24C4B6F264/.htaccess",
+		"/Users/manchicken/Documents/Devel/libmanchicken/include/mutable_string.h",
+		"/Users/manchicken/Documents/Devel/libmanchicken/t/t_mutable_string.c",
+		"/Users/manchicken/Documents/Devel/libmanchicken/t/Makefile.am",
+		"/Users/manchicken/Documents/Devel/libmanchicken/include/findbin.h",
+		"/Users/manchicken/Documents/Devel/libmanchicken/aclocal.m4",
+		"/Users/manchicken/Documents/Devel/libmanchicken/configure.ac",
+		"/Users/manchicken/Documents/Devel/libmanchicken/src/Makefile.am",
+		"/Users/manchicken/Documents/Devel/libmanchicken/src/mutable_string.h",
 		"/Users/manchicken/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/Users/manchicken/Documents/Devel/webchunks/Makefile",
 		"/Users/manchicken/Documents/Devel/webchunks/Webchunks.sublime-workspace",
@@ -694,16 +759,7 @@
 		"/Volumes/cpm-apts.com (Dev)/app/views/properties/view.ctp",
 		"/Volumes/cpm-apts.com (Dev)/app/views/helpers/qrcode.php",
 		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/8FFCA1F9-9641-4A21-A815-5A2037B2F093/admin_index.ctp",
-		"/Volumes/cpm-apts.com (Dev)/app/views/properties/admin_view.ctp",
-		"/Volumes/cpm-apts.com (Dev)/app/views/properties/index.ctp",
-		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/ED5557B6-8EA5-4B42-A5AD-7867DE1CCCA1/index.ctp",
-		"/Volumes/cpm-apts.com (Dev)/app/views/properties/mobile/index.ctp",
-		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/055D44A6-2B90-4896-B137-B19ACBCADF95/index.ctp",
-		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/CA158C5B-2F17-4BEC-8928-88A2B7D61690/search_controller.php",
-		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/712DA20B-1E86-4A6C-8BFE-8FF82F844689/pages_controller.php",
-		"/Volumes/cpm-apts.com (Dev)/app/controllers/properties_controller.php",
-		"/Volumes/cpm-apts.com (Dev)/app/controllers/users_controller.php",
-		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/FB155F1D-C759-4D92-8501-5441213144B7/admin_qr.ctp"
+		"/Volumes/cpm-apts.com (Dev)/app/views/properties/admin_view.ctp"
 	],
 	"find":
 	{
@@ -823,7 +879,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 9,
 			"sheets":
 			[
 				{
@@ -831,15 +887,15 @@
 					"file": "/Users/manchicken/Documents/Devel/libmanchicken/Makefile",
 					"settings":
 					{
-						"buffer_size": 1876,
+						"buffer_size": 23439,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1488,
-								1488
+								0,
+								0
 							]
 						],
 						"settings":
@@ -847,7 +903,7 @@
 							"syntax": "Packages/Makefile/Makefile.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 945.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -857,15 +913,15 @@
 					"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/mutable_string.c",
 					"settings":
 					{
-						"buffer_size": 3772,
+						"buffer_size": 4096,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1961,
-								1961
+								0,
+								828
 							]
 						],
 						"settings":
@@ -874,33 +930,33 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1651.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/Users/manchicken/Documents/Devel/libmanchicken/include/mutable_string.h",
+					"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/findbin.c",
 					"settings":
 					{
-						"buffer_size": 1976,
+						"buffer_size": 2063,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1039,
-								1039
+								2060,
+								2060
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"syntax": "Packages/C++/C.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 526.0,
+						"translation.y": 330.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -910,24 +966,181 @@
 					"file": "/Users/manchicken/Documents/Devel/libmanchicken/t/t_mutable_string.c",
 					"settings":
 					{
-						"buffer_size": 2764,
+						"buffer_size": 5013,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1985,
-								1985
+								842,
+								842
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 950.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/manchicken/Documents/Devel/libmanchicken/t/t_findbin.c",
+					"settings":
+					{
+						"buffer_size": 1882,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								802,
+								802
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/manchicken.h",
+					"settings":
+					{
+						"buffer_size": 890,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								859,
+								859
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/findbin.h",
+					"settings":
+					{
+						"buffer_size": 912,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								695,
+								695
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/mutable_string.h",
+					"settings":
+					{
+						"buffer_size": 1970,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								759
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/manchicken/Documents/Devel/libmanchicken/src/Makefile.am",
+					"settings":
+					{
+						"buffer_size": 259,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								206,
+								206
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/Users/manchicken/Documents/Devel/libmanchicken/README.md",
+					"settings":
+					{
+						"buffer_size": 755,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								755,
+								755
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

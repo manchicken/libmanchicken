@@ -1,25 +1,43 @@
 /*
- * libmanchicken - Copyright (C) 2012 Michael D. Stemle, Jr.
- *
- * This file is part of libmanchicken.
- *
- * libmanchicken is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * libmanchicken is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with libmanchicken. If not, see <http://www.gnu.org/licenses/>.
+ * Copyright (c) 2013, Michael D. Stemle, Jr.
+ * libmanchicken - All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * Redistributions of source code must retain the above copyright notice, this list
+ * of conditions and the following disclaimer.
+ * 
+ * Redistributions in binary form must reproduce the above copyright notice, this
+ * list of conditions and the following disclaimer in the documentation and/or other
+ * materials provided with the distribution.
+ * Neither the name of Michael D. Stemle, Jr., notsosoft.net, nor the names of its
+ * contributors may be used to endorse or promote products derived from this software
+ * without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+ * DAMAGE.
 */
+
+#define __IN_MUTABLE_STRING_C__
 
 #include <string.h>
 #include <stdlib.h>
 #include <mutable_string.h>
+
+char mutable_string_error;
+
+char mutable_string_get_error() {
+	return mutable_string_error;
+}
 
 inline size_t _calculate_new_size(size_t str_length) {
 	return ((str_length + 1) * sizeof(char));
@@ -58,6 +76,7 @@ mutable_string_t* mutable_string_resize(mutable_string_t* target, size_t new_siz
 	if (new_size > MAXIMUM_MUTABLE_STRING_SIZE ||
 			new_size <= 0)
 	{
+		mutable_string_error = MUTABLE_STRING_ERROR_TOO_BIG;
 		return NULL;
 	}
 
@@ -71,6 +90,7 @@ mutable_string_t* mutable_string_resize(mutable_string_t* target, size_t new_siz
 
 	// If we're out of memory, don't trash the existing value, let the caller handle it!
 	if (check_ptr == NULL && new_size > 0) {
+		mutable_string_error = MUTABLE_STRING_ERROR_OUT_OF_MEMORY;
 		return NULL;
 	}
 	target->data = check_ptr;
@@ -164,4 +184,28 @@ char* mutable_string_get_data(mutable_string_t *var) {
 mutable_string_t* mutable_string_copy(mutable_string_t *dest, mutable_string_t *src)
 {
 	return mutable_string_assign(dest, mutable_string_get_data(src));
+}
+
+mutable_string_t* mutable_string_append_mutable_string(mutable_string_t *dest, mutable_string_t *src) {
+	return mutable_string_append(dest, MUTSTR(src));
+}
+
+mutable_string_t* mutable_string_append_char(mutable_string_t *dest, char src) {
+	char _src[2];
+	sprintf(_src, "%c", src);
+
+	return mutable_string_append(dest, _src);
+}
+
+char mutable_string_char_at(mutable_string_t *subject, int position) {
+	if (position < 0) {
+		position = MUTLEN(subject) + position; /* (X>0) + (Y<0) should = (Z>0) */
+	}
+
+	if (position < 0 || position > MUTLEN(subject)) {
+		mutable_string_error = MUTABLE_STRING_ERROR_OUT_OF_RANGE;
+		return 0;
+	}
+
+	return subject->data[position];
 }

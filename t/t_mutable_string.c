@@ -1,20 +1,30 @@
 /*
- * libmanchicken - Copyright (C) 2012 Michael D. Stemle, Jr.
- *
- * This file is part of libmanchicken.
- *
- * libmanchicken is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * libmanchicken is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with libmanchicken. If not, see <http://www.gnu.org/licenses/>.
+ * Copyright (c) 2013, Michael D. Stemle, Jr.
+ * libmanchicken - All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * Redistributions of source code must retain the above copyright notice, this list
+ * of conditions and the following disclaimer.
+ * 
+ * Redistributions in binary form must reproduce the above copyright notice, this
+ * list of conditions and the following disclaimer in the documentation and/or other
+ * materials provided with the distribution.
+ * Neither the name of Michael D. Stemle, Jr., notsosoft.net, nor the names of its
+ * contributors may be used to endorse or promote products derived from this software
+ * without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+ * DAMAGE.
 */
 
 #include <stdio.h>
@@ -31,6 +41,8 @@
 #define TEST_APPEND_HEAD        "AB"
 #define TEST_APPEND_TAIL        "CD"
 #define TEST_APPEND_WHOLE       "ABCD"
+#define TEST_APPEND_CHAR        'C'
+#define TEST_APPEND_CHAR_WHOLE  "ABC"
 
 #define ADD_TEST(X) do { if (!X) { CU_cleanup_registry();return CU_get_error(); } } while (0)
 
@@ -193,6 +205,145 @@ void t_mutable_string_copy(void) {
   mutable_string_free(&b);
 }
 
+void t_mutable_string_append_mutable_string(void) {
+  mutable_string_t a;
+  mutable_string_t b;
+
+  CU_ASSERT_PTR_NOT_NULL(
+    mutable_string_init(
+      &a
+    )
+  );
+
+  CU_ASSERT_PTR_NOT_NULL(
+    mutable_string_init_with_value(
+      &b, TEST_APPEND_TAIL
+    )
+  );
+
+  CU_ASSERT_EQUAL(
+    mutable_string_get_length(&a),
+    0
+  );
+
+  CU_ASSERT_PTR_NOT_NULL(
+    mutable_string_assign(
+      &a,
+      TEST_APPEND_HEAD
+    )
+  );
+
+  CU_ASSERT_STRING_EQUAL(
+    MUTSTR(&a),
+    TEST_APPEND_HEAD
+  );
+
+  CU_ASSERT_PTR_NOT_NULL(
+    mutable_string_append_mutable_string(
+      &a,
+      &b
+    )
+  );
+
+  CU_ASSERT_STRING_EQUAL(
+    MUTSTR(&a),
+    TEST_APPEND_WHOLE
+  );
+
+  mutable_string_free(&a);
+  mutable_string_free(&b);
+}
+
+void t_mutable_string_append_char(void) {
+  mutable_string_t a;
+
+  CU_ASSERT_PTR_NOT_NULL(
+    mutable_string_init(
+      &a
+    )
+  );
+
+  CU_ASSERT_EQUAL(
+    mutable_string_get_length(&a),
+    0
+  );
+
+  CU_ASSERT_PTR_NOT_NULL(
+    mutable_string_assign(
+      &a,
+      TEST_APPEND_HEAD
+    )
+  );
+
+  CU_ASSERT_STRING_EQUAL(
+    MUTSTR(&a),
+    TEST_APPEND_HEAD
+  );
+
+  CU_ASSERT_PTR_NOT_NULL(
+    mutable_string_append_char(
+      &a,
+      TEST_APPEND_CHAR
+    )
+  );
+
+  CU_ASSERT_STRING_EQUAL(
+    MUTSTR(&a),
+    TEST_APPEND_CHAR_WHOLE
+  );
+
+  mutable_string_free(&a);
+}
+
+void t_mutable_string_char_at(void) {
+    mutable_string_t a;
+
+  CU_ASSERT_PTR_NOT_NULL(
+    mutable_string_init(
+      &a
+    )
+  );
+
+  CU_ASSERT_EQUAL(
+    mutable_string_get_length(&a),
+    0
+  );
+
+  CU_ASSERT_PTR_NOT_NULL(
+    mutable_string_assign(
+      &a,
+      TEST_APPEND_WHOLE
+    )
+  );
+
+  CU_ASSERT_EQUAL(
+    mutable_string_char_at(&a, 2),
+    'C'
+  );
+
+  CU_ASSERT_EQUAL(
+    mutable_string_char_at(&a, -1),
+    'D'
+  );
+
+  CU_ASSERT_EQUAL(
+    mutable_string_char_at(&a, -4),
+    'A'
+  );
+
+  CU_ASSERT_EQUAL(
+    mutable_string_char_at(&a, -5),
+    0
+  );
+
+  CU_ASSERT_EQUAL(
+    mutable_string_get_error(),
+    MUTABLE_STRING_ERROR_OUT_OF_RANGE
+  );
+
+  mutable_string_free(&a);
+}
+
 /* MAIN */
 int main(void) {
   CU_pSuite ste = NULL;
@@ -213,6 +364,9 @@ int main(void) {
   ADD_TEST(CU_add_test(ste, "Verify mutable_string_assign()...", t_mutable_string_assign));
   ADD_TEST(CU_add_test(ste, "Verify mutable_string_append()...", t_mutable_string_append));
   ADD_TEST(CU_add_test(ste, "Verify mutable_string_copy()...", t_mutable_string_copy));
+  ADD_TEST(CU_add_test(ste, "Verify mutable_string_append_mutable_string()...", t_mutable_string_append_mutable_string));
+  ADD_TEST(CU_add_test(ste, "Verify mutable_string_append_char()...", t_mutable_string_append_char));
+  ADD_TEST(CU_add_test(ste, "Verify mutable_string_char_at()...", t_mutable_string_char_at));
 
   // CU_console_run_tests();
   CU_basic_set_mode(CU_BRM_VERBOSE);
