@@ -29,7 +29,6 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <findbin.h>
 
 #ifdef __unix__
   #include <sys/param.h>
@@ -44,12 +43,14 @@
   #include <unistd.h>
   #warning This is untested on this platform, please notify me if you have results to communicate.
 #elif defined(_WIN32) || define(_WIN64)
-  #error Windows is unsupported. Sorry. If you'd like to add support and contribute, please let me know.
+  #error Windows is unsupported. Sorry. If youd like to add support and contribute, please let me know.
 #endif
+
+#include <findbin.h>
 
 mutable_string_t *findbin(mutable_string_t *buf) {
   char pathbuf[1536];
-  uint32_t pathsize = sizeof(pathbuf);
+  unsigned long pathsize = sizeof(pathbuf);
 
   #if defined(__linux__) || defined(BSD)
     ssize_t outsize = 0;
@@ -68,6 +69,7 @@ mutable_string_t *findbin(mutable_string_t *buf) {
     if (outsize == 0) { return NULL; }
     pathbuf[outsize] = '\0';
   #elif defined(_WIN32) || define(_WIN64)
+    #error Windows is unsupported.
   #endif
 
   mutable_string_assign(buf, pathbuf);

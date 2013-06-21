@@ -29,6 +29,7 @@
 
 #define __IN_MUTABLE_STRING_C__
 
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <mutable_string.h>
