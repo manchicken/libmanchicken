@@ -42,8 +42,8 @@
 #elif defined(BSD)
   #include <unistd.h>
   #warning This is untested on this platform, please notify me if you have results to communicate.
-#elif defined(_WIN32) || define(_WIN64)
-  #error Windows is unsupported. Sorry. If youd like to add support and contribute, please let me know.
+#else
+  #error Your OS is unsupported. Sorry. If youd like to add support and contribute, please let me know.
 #endif
 
 #include <findbin.h>
@@ -68,8 +68,8 @@ mutable_string_t *findbin(mutable_string_t *buf) {
     outsize = readlink("/proc/curproc/file", pathbuf, pathsize);
     if (outsize == 0) { return NULL; }
     pathbuf[outsize] = '\0';
-  #elif defined(_WIN32) || define(_WIN64)
-    #error Windows is unsupported.
+  #else
+    #error Your OS is unsupported. Sorry. If youd like to add support and contribute, please let me know.
   #endif
 
   mutable_string_assign(buf, pathbuf);

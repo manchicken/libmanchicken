@@ -47,9 +47,11 @@ PROGRAMS = $(noinst_PROGRAMS)
 am_t_findbin_OBJECTS = t_findbin.$(OBJEXT)
 t_findbin_OBJECTS = $(am_t_findbin_OBJECTS)
 t_findbin_LDADD = $(LDADD)
+t_findbin_DEPENDENCIES =
 am_t_mutable_string_OBJECTS = t_mutable_string.$(OBJEXT)
 t_mutable_string_OBJECTS = $(am_t_mutable_string_OBJECTS)
 t_mutable_string_LDADD = $(LDADD)
+t_mutable_string_DEPENDENCIES =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -156,6 +158,7 @@ top_srcdir = @top_srcdir@
 # what flags you want to pass to the C compiler & linker
 AM_CFLAGS = --pedantic -Wall -std=c99 -ggdb3 -I../src
 AM_LDFLAGS = -lc -L../src -lmanchicken
+LDADD = -L../src -lmanchicken
 t_mutable_string_SOURCES = t_mutable_string.c
 t_findbin_SOURCES = t_findbin.c
 all: all-am
