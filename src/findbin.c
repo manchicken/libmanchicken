@@ -50,7 +50,10 @@
 mutable_string_t *findbin(mutable_string_t *buf) {
   char pathbuf[1536];
   uint32_t pathsize = sizeof(pathbuf);
-  ssize_t outsize = 0;
+
+  #if defined(__linux__) || defined(BSD)
+    ssize_t outsize = 0;
+  #endif
 
   #if defined(__linux__)
     outsize = readlink("/proc/self/exe", pathbuf, pathsize);
