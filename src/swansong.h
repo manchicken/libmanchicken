@@ -27,11 +27,17 @@
  * DAMAGE.
 */
 
-#ifndef __MANCHICKEN_H__
-#define __MANCHICKEN_H__
+#ifndef __SWANSONG_H__
+#define __SWANSONG_H__
 
-#include <swansong.h>
-#include <mutable_string.h>
-#include <findbin.h>
+typedef void(*exitfunc_t)(int);
 
-#endif /* __MANCHICKEN_H__ */
+void swansong_fatal(int code);
+void swansong_nonfatal(int code);
+
+void swansong(const char *message, exitfunc_t exitfunc);
+
+#define SWANSONG_FATAL    &swansong_fatal
+#define SWANSONG_NONFATAL &swansong_nonfatal
+
+#endif /* __SWANSONG_H__ */

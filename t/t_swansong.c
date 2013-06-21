@@ -27,11 +27,56 @@
  * DAMAGE.
 */
 
-#ifndef __MANCHICKEN_H__
-#define __MANCHICKEN_H__
+#include <stdio.h>
+#include <manchicken.h>
+#include <CUnit/Basic.h>
 
-#include <swansong.h>
-#include <mutable_string.h>
-#include <findbin.h>
+#define ADD_TEST(X) do { if (!X) { CU_cleanup_registry();return CU_get_error(); } } while (0)
 
-#endif /* __MANCHICKEN_H__ */
+int init_swansong_suite(void) {
+  return 0;
+}
+
+int clean_swansong_suite(void) {
+  return 0;
+}
+
+int exited_with = 0;
+
+void my_exit(int code) {
+  exited_with = code;
+}
+
+void t_swansong(void) {
+  swansong("This is a test!", SWANSONG_NONFATAL);
+  CU_ASSERT_EQUAL(exited_with, 0);
+  swansong("This is a \"fatal\" test!", &my_exit);
+  CU_ASSERT_EQUAL(exited_with, -1);
+}
+
+/* MAIN */
+int main(void) {
+  CU_pSuite ste = NULL;
+
+  if (CUE_SUCCESS != CU_initialize_registry()) {
+    return CU_get_error();
+  }
+
+  ste = CU_add_suite("swansong_suite", init_swansong_suite, clean_swansong_suite);
+  if (NULL == ste) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
+  ADD_TEST(CU_add_test(ste, "Verify swansong()...", t_swansong));
+
+  // CU_console_run_tests();
+  CU_basic_set_mode(CU_BRM_VERBOSE);
+  CU_basic_run_suite(ste);
+  CU_basic_show_failures(CU_get_failure_list());
+  CU_cleanup_registry();
+
+  printf("\n");
+
+  return CU_get_error();
+}
