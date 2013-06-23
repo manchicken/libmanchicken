@@ -27,24 +27,32 @@
  * DAMAGE.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <swansong.h>
+#ifndef __DYNAMIC_CSV_H__
+#define __DYNAMIC_CSV_H__
 
-void swansong_fatal(int code) {
-  exit(code);
-}
+#include <mutable_string.h>
 
-void swansong_nonfatal(int code) {
-  // noop
-}
+typedef struct {
+  int index;
+  mutable_string_t heading;
+} csv_column_t;
 
-void swansong(const char *message, exitfunc_t exitfunc) {
-  fprintf(stderr, "Swansong: %s\n", message);
+typedef struct {
+  int index;
+  
+} csv_row_t;
 
-  if (!exitfunc) {
-    exitfunc = SWANSONG_FATAL;
-  }
+typedef struct {
+  csv_column_t *column;
+  csv_row_t *row;
+  mutable_string_t data;
+} csv_cell_t;
 
-  (*exitfunc)(-1);
-}
+typedef struct {
+  mutable_string_t file;
+  char in_quote;
+  mutable_string_t quote_buffer;
+  mutable_string_t co
+} csv_context_t;
+
+#endif /* __DYNAMIC_CSV_H__ */

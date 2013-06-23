@@ -3,5 +3,5 @@ AM_CFLAGS = --pedantic -Wall -std=c99 -O2
 AM_LDFLAGS = -lc
 
 lib_LIBRARIES = libmanchicken.a
-include_HEADERS = mutable_string.h findbin.h manchicken.h swansong.h
-libmanchicken_a_SOURCES = mutable_string.c findbin.c swansong.c
+include_HEADERS = mutable_string.h findbin.h manchicken.h swansong.h dynamic_csv.h
+libmanchicken_a_SOURCES = mutable_string.c findbin.c swansong.c dynamic_csv.c

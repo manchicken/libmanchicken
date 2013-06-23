@@ -26,25 +26,3 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
 */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <swansong.h>
-
-void swansong_fatal(int code) {
-  exit(code);
-}
-
-void swansong_nonfatal(int code) {
-  // noop
-}
-
-void swansong(const char *message, exitfunc_t exitfunc) {
-  fprintf(stderr, "Swansong: %s\n", message);
-
-  if (!exitfunc) {
-    exitfunc = SWANSONG_FATAL;
-  }
-
-  (*exitfunc)(-1);
-}

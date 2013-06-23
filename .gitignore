@@ -1,4 +1,7 @@
 */*.a
 */*.o
 */*/*.o
+*/*/*.dSYM
+*/*.dSYM
 */*.test
+autom4te.cache

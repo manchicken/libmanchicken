@@ -27,24 +27,21 @@
  * DAMAGE.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <swansong.h>
+#ifndef __DYNAMIC_LIST_H__
+#define __DYNAMIC_LIST_H__
 
-void swansong_fatal(int code) {
-  exit(code);
-}
+typedef struct {
+  void *items;
+  size_t item_size;
+  size_t count;
+  size_t size_in_bytes;
+} dynamic_list_t;
 
-void swansong_nonfatal(int code) {
-  // noop
-}
+void assert_valid_dynamic_list(dynamic_list_t *list);
 
-void swansong(const char *message, exitfunc_t exitfunc) {
-  fprintf(stderr, "Swansong: %s\n", message);
+dynamic_list_t* dynamic_list_init(dynamic_list_t *list, size_t item_size);
+void dynamic_list_free(dynamic_list_t *list);
 
-  if (!exitfunc) {
-    exitfunc = SWANSONG_FATAL;
-  }
+dynamic_list_t* dynamic_list_resize(dynamic_list_t *list, size_t item_size, size_t num_items);
 
-  (*exitfunc)(-1);
-}
+#endif /* __DYNAMIC_LIST_H__ */
