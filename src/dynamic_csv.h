@@ -30,29 +30,56 @@
 #ifndef __DYNAMIC_CSV_H__
 #define __DYNAMIC_CSV_H__
 
+#include <stdio.h>
+#include <dynamic_list.h>
 #include <mutable_string.h>
 
+// Think of a header row in a spreadsheet table
 typedef struct {
   int index;
   mutable_string_t heading;
 } csv_column_t;
 
+// This is the rows
 typedef struct {
   int index;
-  
+  dynamic_list_t *headings;
+  dynamic_list_t cells;
 } csv_row_t;
 
+// Think of a cell in a spreadsheet, has a reference to its row and its column
 typedef struct {
   csv_column_t *column;
   csv_row_t *row;
   mutable_string_t data;
 } csv_cell_t;
 
+// This is the whole document, incl. the file stream pointer
 typedef struct {
-  mutable_string_t file;
+  FILE *instream;
   char in_quote;
   mutable_string_t quote_buffer;
-  mutable_string_t co
-} csv_context_t;
+  mutable_string_t buffer;
+
+  char has_header_row;
+  dynamic_list_t cols;
+  dynamic_list_t rows;
+} csv_document_t;
+
+/* Column stuff */
+csv_column_t* csv_column_init(csv_column_t *col);
+void csv_column_free(csv_column_t *col);
+
+/* Row stuff */
+csv_row_t* csv_row_init(csv_row_t *row, csv_row_t *ro_header);
+void csv_row_free(csv_row_t *row);
+
+/* Cell stuff */
+csv_cell_t* csv_cell_init(csv_cell_t *cell, csv_row_t *ro_row, csv_col_t *ro_col);
+void csv_cell_free(csv_cell_t *cell);
+
+/* Document stuff */
+csv_document_t* csv_document_init(csv_document_t *doc, FILE *instream, char first_row_has_headers);
+void csv_document_free(csv_document_t *doc);
 
 #endif /* __DYNAMIC_CSV_H__ */

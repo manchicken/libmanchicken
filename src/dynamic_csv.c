@@ -26,3 +26,100 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
 */
+
+#include <swansong.h>
+#include <dynamic_csv.h>
+
+/* Column stuff */
+csv_column_t* csv_column_init(csv_column_t *col) {
+  col->index = 0;
+  if (!mutable_string_init( &(col->heading) )) {
+    return NULL;
+  }
+
+  return col;
+}
+void csv_column_free(csv_column_t *col) {
+  if (!col) { return; }
+
+  col->index = -1;
+  mutable_string_free( &(col->heading) );
+
+  return;
+}
+
+/* Row stuff */
+csv_row_t* csv_row_init(csv_row_t *row, csv_row_t *ro_header) {
+  if (!dynamic_list_init( &(row->cells), sizeof(csv_cell_t) )) {
+    return NULL;
+  }
+  // ro_ indicates a variable which I don't touch in the function, but do use the value or reference
+  row->headings = ro_header;
+
+  row->index = 0;
+
+  return row;
+}
+void csv_row_free(csv_row_t *row) {
+  if (!row) { return; }
+
+  dyamic_list_free( &(row->cells) );
+  row->headings = NULL;
+}
+
+/* Cell stuff */
+csv_cell_t* csv_cell_init(csv_cell_t *cell, csv_row_t *ro_row, csv_col_t *ro_col) {
+  if (!ro_row || !ro_cell) {
+    swansong("No row or cell passed in to csv_cell_init()", SWANSONG_FATAL);
+  }
+
+  if (!mutable_string_init( &(cell->data) )) {
+    return NULL;
+  }
+
+  cell->row = ro_row;
+  cell->column = ro_col;
+
+  return cell;
+}
+void csv_cell_free(csv_cell_t *cell) {
+  if (!cell) { return; }
+
+  cell->row = NULL;
+  cell->column = NULL;
+  mutable_string_free( &(cell->data) );
+
+  return;
+}
+
+/* Document stuff */
+csv_document_t* csv_document_init(csv_document_t *doc, FILE *instream, char first_row_has_headers) {
+  if (!instream) {
+    swansong("Invalid file stream passed in to csv_document_init()", SWANSONG_FATAL);
+  }
+
+  if (!muable_string_init( &(doc->quote_buffer) )) {
+    return NULL;
+  }
+
+  if (!muable_string_init( &(doc->buffer) )) {
+    return NULL;
+  }
+
+  if (!dynamic_list_init( &(doc->cols) )) {
+    return NULL;
+  }
+
+  if (!dynamic_list_init( &(doc->rows) )) {
+    return NULL;
+  }
+}
+void csv_document_free(csv_document_t *doc) {
+  if (!doc) { return; }
+
+  mutable_string_free( &(doc->quote_buffer) );
+  mutable_string_free( &(doc->buffer) );
+
+  dyamic_list_free( &(doc->cols) );
+  dyamic_list_free( &(doc->rows) );
+}
