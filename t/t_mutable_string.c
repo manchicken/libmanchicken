@@ -32,6 +32,7 @@
 #include <stdlib.h>
 #include <manchicken.h>
 
+#include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 // #include <CUnit/Console.h>
 
@@ -47,10 +48,12 @@
 #define ADD_TEST(X) do { if (!X) { CU_cleanup_registry();return CU_get_error(); } } while (0)
 
 int init_mutable_string_suite(void) {
+  fprintf(stderr, "HERE!!! Suite Initted!\n");
   return 0;
 }
 
 int clean_mutable_string_suite(void) {
+  fprintf(stderr, "HERE!!! Suite Cleaned!\n");
   return 0;
 }
 
@@ -296,7 +299,8 @@ void t_mutable_string_append_char(void) {
 }
 
 void t_mutable_string_char_at(void) {
-    mutable_string_t a;
+  fprintf(stderr, "t_mutable_string_char_at\n");
+  mutable_string_t a;
 
   CU_ASSERT_PTR_NOT_NULL(
     mutable_string_init(
@@ -346,6 +350,7 @@ void t_mutable_string_char_at(void) {
 
 /* MAIN */
 int main(void) {
+  fprintf(stderr, "I'm here!\n");
   CU_pSuite ste = NULL;
 
   if (CUE_SUCCESS != CU_initialize_registry()) {
@@ -357,6 +362,9 @@ int main(void) {
     CU_cleanup_registry();
     return CU_get_error();
   }
+  if (CU_get_error() != CUE_SUCCESS) {
+    fprintf(stderr, "Error creating suite: (%d)%s\n", CU_get_error(), CU_get_error_msg());
+  }
 
   ADD_TEST(CU_add_test(ste, "Verify mutable_string_init()...", t_mutable_string_init));
   ADD_TEST(CU_add_test(ste, "Verify mutable_string_init_with_value()...", t_mutable_string_init_with_value));
@@ -367,14 +375,22 @@ int main(void) {
   ADD_TEST(CU_add_test(ste, "Verify mutable_string_append_mutable_string()...", t_mutable_string_append_mutable_string));
   ADD_TEST(CU_add_test(ste, "Verify mutable_string_append_char()...", t_mutable_string_append_char));
   ADD_TEST(CU_add_test(ste, "Verify mutable_string_char_at()...", t_mutable_string_char_at));
+  // if (CU_get_error() != CUE_SUCCESS) {
+    fprintf(stderr, "Error creating suite: (%d)%s\n", CU_get_error(), CU_get_error_msg());
+  // }
 
   // CU_console_run_tests();
   CU_basic_set_mode(CU_BRM_VERBOSE);
-  CU_basic_run_suite(ste);
+  CU_ErrorCode run_errors = CU_basic_run_suite(ste);
+  if (run_errors != CUE_SUCCESS) {
+    fprintf(stderr, "Error running tests: (%d)%s\n", run_errors, CU_get_error_msg());
+  }
+
   CU_basic_show_failures(CU_get_failure_list());
   CU_cleanup_registry();
 
   printf("\n");
+  printf("I'm done!\n");
 
   return CU_get_error();
 }

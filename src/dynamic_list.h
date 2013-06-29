@@ -30,18 +30,32 @@
 #ifndef __DYNAMIC_LIST_H__
 #define __DYNAMIC_LIST_H__
 
+#include <stddef.h>
+
 typedef struct {
-  void *items;
+  void **items;
   size_t item_size;
+  size_t count_allocated;
   size_t count;
   size_t size_in_bytes;
 } dynamic_list_t;
 
-void assert_valid_dynamic_list(dynamic_list_t *list);
+typedef void(*dynamic_list_foreach_func_t)(void*);
+
+void assert_valid_dynamic_list(dynamic_list_t *list, exitfunc_t result);
 
 dynamic_list_t* dynamic_list_init(dynamic_list_t *list, size_t item_size);
+dynamic_list_t* dynamic_list_init_with_capacity(dynamic_list_t *list, size_t item_size, size_t num_items);
 void dynamic_list_free(dynamic_list_t *list);
 
-dynamic_list_t* dynamic_list_resize(dynamic_list_t *list, size_t item_size, size_t num_items);
+dynamic_list_t* dynamic_list_resize(dynamic_list_t *list, size_t num_items);
+dynamic_list_t* dynamic_list_append(dynamic_list_t *list, void *item);
+void* dynamic_list_get_item(dynamic_list_t *list, unsigned int index);
+void dynamic_list_foreach(dynamic_list_t *list, dynamic_list_foreach_func_t foreach);
+
+#define dynamic_list_count(DLIST_PTR)     ((DLIST_PTR)->count)
+#define dynamic_list_size(DLIST_PTR)      ((DLIST_PTR)->size_in_bytes)
+#define dynamic_list_capacity(DLIST_PTR)  ((DLIST_PTR)->count_allocated)
+#define dynamic_list_item_size(DLIST_PTR) ((DLIST_PTR)->item_size)
 
 #endif /* __DYNAMIC_LIST_H__ */

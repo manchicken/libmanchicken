@@ -36,6 +36,7 @@ void swansong_fatal(int code);
 void swansong_nonfatal(int code);
 
 void swansong(const char *message, exitfunc_t exitfunc);
+void swansong_err(const char *message, exitfunc_t exitfunc);
 
 #define SWANSONG_FATAL    &swansong_fatal
 #define SWANSONG_NONFATAL &swansong_nonfatal

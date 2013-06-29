@@ -29,7 +29,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+
 #include <swansong.h>
+
+extern int errno;
 
 void swansong_fatal(int code) {
   exit(code);
@@ -41,6 +46,16 @@ void swansong_nonfatal(int code) {
 
 void swansong(const char *message, exitfunc_t exitfunc) {
   fprintf(stderr, "Swansong: %s\n", message);
+
+  if (!exitfunc) {
+    exitfunc = SWANSONG_FATAL;
+  }
+
+  (*exitfunc)(-1);
+}
+
+void swansong_err(const char *message, exitfunc_t exitfunc) {
+  fprintf(stderr, "Swansong: %s: %s\n", message, strerror(errno));
 
   if (!exitfunc) {
     exitfunc = SWANSONG_FATAL;

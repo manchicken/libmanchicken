@@ -33,5 +33,6 @@
 #include <swansong.h>
 #include <mutable_string.h>
 #include <findbin.h>
+#include <dynamic_list.h>
 
 #endif /* __MANCHICKEN_H__ */

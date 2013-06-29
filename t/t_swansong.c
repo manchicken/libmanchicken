@@ -27,6 +27,7 @@
  * DAMAGE.
 */
 
+#include <errno.h>
 #include <stdio.h>
 #include <manchicken.h>
 #include <CUnit/Basic.h>
@@ -42,6 +43,7 @@ int clean_swansong_suite(void) {
 }
 
 int exited_with = 0;
+extern int errno;
 
 void my_exit(int code) {
   exited_with = code;
@@ -51,6 +53,15 @@ void t_swansong(void) {
   swansong("This is a test!", SWANSONG_NONFATAL);
   CU_ASSERT_EQUAL(exited_with, 0);
   swansong("This is a \"fatal\" test!", &my_exit);
+  CU_ASSERT_EQUAL(exited_with, -1);
+}
+
+void t_swansong_err(void) {
+  errno = EAGAIN;
+  exited_with = 0;
+  swansong_err("This is a test!", SWANSONG_NONFATAL);
+  CU_ASSERT_EQUAL(exited_with, 0);
+  swansong_err("This is a \"fatal\" test!", &my_exit);
   CU_ASSERT_EQUAL(exited_with, -1);
 }
 
@@ -69,6 +80,7 @@ int main(void) {
   }
 
   ADD_TEST(CU_add_test(ste, "Verify swansong()...", t_swansong));
+  ADD_TEST(CU_add_test(ste, "Verify swansong_err()...", t_swansong_err));
 
   // CU_console_run_tests();
   CU_basic_set_mode(CU_BRM_VERBOSE);
