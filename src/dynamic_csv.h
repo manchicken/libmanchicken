@@ -71,11 +71,11 @@ csv_column_t* csv_column_init(csv_column_t *col);
 void csv_column_free(csv_column_t *col);
 
 /* Row stuff */
-csv_row_t* csv_row_init(csv_row_t *row, csv_row_t *ro_header);
+csv_row_t* csv_row_init(csv_row_t *row, dynamic_list_t *ro_header);
 void csv_row_free(csv_row_t *row);
 
 /* Cell stuff */
-csv_cell_t* csv_cell_init(csv_cell_t *cell, csv_row_t *ro_row, csv_col_t *ro_col);
+csv_cell_t* csv_cell_init(csv_cell_t *cell, csv_row_t *ro_row, csv_column_t *ro_col);
 void csv_cell_free(csv_cell_t *cell);
 
 /* Document stuff */

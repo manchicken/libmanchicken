@@ -49,7 +49,7 @@ void csv_column_free(csv_column_t *col) {
 }
 
 /* Row stuff */
-csv_row_t* csv_row_init(csv_row_t *row, csv_row_t *ro_header) {
+csv_row_t* csv_row_init(csv_row_t *row, dynamic_list_t *ro_header) {
   if (!dynamic_list_init( &(row->cells), sizeof(csv_cell_t) )) {
     return NULL;
   }
@@ -63,13 +63,13 @@ csv_row_t* csv_row_init(csv_row_t *row, csv_row_t *ro_header) {
 void csv_row_free(csv_row_t *row) {
   if (!row) { return; }
 
-  dyamic_list_free( &(row->cells) );
+  dynamic_list_free( &(row->cells) );
   row->headings = NULL;
 }
 
 /* Cell stuff */
-csv_cell_t* csv_cell_init(csv_cell_t *cell, csv_row_t *ro_row, csv_col_t *ro_col) {
-  if (!ro_row || !ro_cell) {
+csv_cell_t* csv_cell_init(csv_cell_t *cell, csv_row_t *ro_row, csv_column_t *ro_col) {
+  if (!ro_row || !ro_col) {
     swansong("No row or cell passed in to csv_cell_init()", SWANSONG_FATAL);
   }
 
@@ -98,6 +98,9 @@ csv_document_t* csv_document_init(csv_document_t *doc, FILE *instream, char firs
     swansong("Invalid file stream passed in to csv_document_init()", SWANSONG_FATAL);
   }
 
+  doc->instream = instream;
+  doc->has_header_row = first_row_has_headers;
+
   if (!muable_string_init( &(doc->quote_buffer) )) {
     return NULL;
   }
@@ -106,16 +109,19 @@ csv_document_t* csv_document_init(csv_document_t *doc, FILE *instream, char firs
     return NULL;
   }
 
-  if (!dynamic_list_init( &(doc->cols) )) {
+  if (!dynamic_list_init( &(doc->cols), sizeof(csv_column_t) )) {
     return NULL;
   }
 
-  if (!dynamic_list_init( &(doc->rows) )) {
+  if (!dynamic_list_init( &(doc->rows), sizeof(csv_row_t) )) {
     return NULL;
   }
 }
 void csv_document_free(csv_document_t *doc) {
   if (!doc) { return; }
+
+  doc->instream = NULL;
+  doc->in_quote = 'N';
 
   mutable_string_free( &(doc->quote_buffer) );
   mutable_string_free( &(doc->buffer) );

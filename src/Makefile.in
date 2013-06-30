@@ -94,7 +94,8 @@ ARFLAGS = cru
 libmanchicken_a_AR = $(AR) $(ARFLAGS)
 libmanchicken_a_LIBADD =
 am_libmanchicken_a_OBJECTS = mutable_string.$(OBJEXT) \
-	findbin.$(OBJEXT) swansong.$(OBJEXT) dynamic_list.$(OBJEXT)
+	findbin.$(OBJEXT) swansong.$(OBJEXT) dynamic_list.$(OBJEXT) \
+	dynamic_csv.$(OBJEXT)
 libmanchicken_a_OBJECTS = $(am_libmanchicken_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -209,8 +210,8 @@ top_srcdir = @top_srcdir@
 AM_CFLAGS = --pedantic -Wall -std=c99 -O2 -D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED
 AM_LDFLAGS = -lc
 lib_LIBRARIES = libmanchicken.a
-include_HEADERS = mutable_string.h findbin.h manchicken.h swansong.h dynamic_list.h
-libmanchicken_a_SOURCES = mutable_string.c findbin.c swansong.c dynamic_list.c
+include_HEADERS = mutable_string.h findbin.h manchicken.h swansong.h dynamic_list.h dynamic_csv.h
+libmanchicken_a_SOURCES = mutable_string.c findbin.c swansong.c dynamic_list.c dynamic_csv.c
 all: all-am
 
 .SUFFIXES:
@@ -287,6 +288,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dynamic_csv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dynamic_list.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/findbin.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mutable_string.Po@am__quote@
