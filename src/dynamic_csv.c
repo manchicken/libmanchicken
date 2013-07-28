@@ -101,11 +101,11 @@ csv_document_t* csv_document_init(csv_document_t *doc, FILE *instream, char firs
   doc->instream = instream;
   doc->has_header_row = first_row_has_headers;
 
-  if (!muable_string_init( &(doc->quote_buffer) )) {
+  if (!mutable_string_init( &(doc->quote_buffer) )) {
     return NULL;
   }
 
-  if (!muable_string_init( &(doc->buffer) )) {
+  if (!mutable_string_init( &(doc->buffer) )) {
     return NULL;
   }
 
@@ -116,6 +116,8 @@ csv_document_t* csv_document_init(csv_document_t *doc, FILE *instream, char firs
   if (!dynamic_list_init( &(doc->rows), sizeof(csv_row_t) )) {
     return NULL;
   }
+  
+  return doc;
 }
 void csv_document_free(csv_document_t *doc) {
   if (!doc) { return; }
@@ -126,6 +128,6 @@ void csv_document_free(csv_document_t *doc) {
   mutable_string_free( &(doc->quote_buffer) );
   mutable_string_free( &(doc->buffer) );
 
-  dyamic_list_free( &(doc->cols) );
-  dyamic_list_free( &(doc->rows) );
+  dynamic_list_free( &(doc->cols) );
+  dynamic_list_free( &(doc->rows) );
 }

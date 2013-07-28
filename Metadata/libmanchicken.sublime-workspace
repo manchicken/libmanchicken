@@ -4,24 +4,52 @@
 		"selected_items":
 		[
 			[
+				"dynami",
+				"dynamic_list_t"
+			],
+			[
+				"dy",
+				"dyamic_list_free"
+			],
+			[
+				"csv_cel",
+				"csv_cell_t"
+			],
+			[
+				"csv_row",
+				"csv_row_t"
+			],
+			[
+				"csv_docu",
+				"csv_document_t"
+			],
+			[
+				"csv_col",
+				"csv_column_t"
+			],
+			[
+				"csv_conte",
+				"csv_context_t"
+			],
+			[
+				"csv",
+				"csv_column_t"
+			],
+			[
+				"dyn",
+				"dynamic_list"
+			],
+			[
+				"prin",
+				"printer_str"
+			],
+			[
 				"dyna",
-				"dynamic_list_free"
+				"dynamic_list_count"
 			],
 			[
 				"foo",
 				"foo_out"
-			],
-			[
-				"dynami",
-				"dynamic_list_count"
-			],
-			[
-				"dyn",
-				"dynamic_list_init"
-			],
-			[
-				"dy",
-				"dynamic_list_free"
 			],
 			[
 				"dum",
@@ -486,36 +514,24 @@
 			[
 				"actio",
 				"actionName"
-			],
-			[
-				"array_va",
-				"array_values"
-			],
-			[
-				"arr",
-				"array_count_values"
-			],
-			[
-				"array_k",
-				"array_key_exists"
-			],
-			[
-				"desc",
-				"description"
-			],
-			[
-				"E_",
-				"E_NOTICE"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"file": "/home/manchicken/Documents/Devel/libmanchicken/t/t_dynamic_list.c",
+			"settings":
+			{
+				"buffer_size": 4701,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "/home/manchicken/Documents/Devel/libmanchicken/src/dynamic_list.c",
 			"settings":
 			{
-				"buffer_size": 4419,
+				"buffer_size": 4625,
 				"line_ending": "Unix"
 			}
 		},
@@ -523,15 +539,7 @@
 			"file": "/home/manchicken/Documents/Devel/libmanchicken/src/dynamic_list.h",
 			"settings":
 			{
-				"buffer_size": 2645,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/manchicken/Documents/Devel/libmanchicken/t/t_swansong.c",
-			"settings":
-			{
-				"buffer_size": 3067,
+				"buffer_size": 2783,
 				"line_ending": "Unix"
 			}
 		},
@@ -552,10 +560,26 @@
 			}
 		},
 		{
-			"file": "/home/manchicken/Documents/Devel/libmanchicken/t/t_mutable_string.c",
+			"file": "/home/manchicken/Documents/Devel/libmanchicken/src/dynamic_csv.c",
 			"settings":
 			{
-				"buffer_size": 8903,
+				"buffer_size": 3848,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/manchicken/Documents/Devel/libmanchicken/src/dynamic_csv.h",
+			"settings":
+			{
+				"buffer_size": 2978,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/manchicken/Documents/Devel/libmanchicken/t/t_dynamic_csv.c",
+			"settings":
+			{
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		}
@@ -569,6 +593,10 @@
 			[
 				"close",
 				"Project: Close"
+			],
+			[
+				"tag",
+				"CTags: Show Symbols (all)"
 			],
 			[
 				"install",
@@ -621,10 +649,6 @@
 			[
 				"build",
 				"Build: Build"
-			],
-			[
-				"tag",
-				"CTags: Rebuild Tags"
 			],
 			[
 				"make",
@@ -688,12 +712,14 @@
 	},
 	"file_history":
 	[
-		"/home/manchicken/Documents/Devel/libmanchicken/t/t_dynamic_list.c",
-		"/home/manchicken/Documents/Devel/calligra-2.6.92/krita/image/kis_filter_weights_applicator.h",
-		"/home/manchicken/Documents/Devel/libmanchicken/src/manchicken.h",
 		"/home/manchicken/Documents/Devel/libmanchicken/src/Makefile.am",
-		"/home/manchicken/Documents/Devel/libmanchicken/t/Makefile.am",
+		"/home/manchicken/Documents/Devel/libmanchicken/t/t_swansong.c",
 		"/home/manchicken/Documents/Devel/libmanchicken/t/t_mutable_string.c",
+		"/home/manchicken/Documents/Devel/calligra-2.6.92/krita/image/kis_filter_weights_applicator.h",
+		"/home/manchicken/Documents/Devel/calligra-2.6.92/krita/image/kis_fixed_point_maths.h",
+		"/home/manchicken/Documents/Devel/libmanchicken/t/t_dynamic_list.c",
+		"/home/manchicken/Documents/Devel/libmanchicken/src/manchicken.h",
+		"/home/manchicken/Documents/Devel/libmanchicken/t/Makefile.am",
 		"/home/manchicken/Documents/Devel/libcunit1-bug.c",
 		"/home/manchicken/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/manchicken/Ubuntu One/Settings/Preferences.sublime-settings",
@@ -813,9 +839,7 @@
 		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/EA035460-219A-4F94-BFE2-5F3A88649C88/app_controller.php",
 		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/BCABF9C2-2012-4D5A-91B0-D5FD36938225/userAuth.php",
 		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/F73450C6-E41D-49A0-B2B9-7FBB8CB3919C/app_controller.php",
-		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/39533DB2-BC80-4708-A90C-8B517E25AD83/permissions.php",
-		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/F2EF0F87-7817-43E1-80B0-CF4384A03A07/content_pages_controller.php",
-		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/3262DD1E-5403-42E9-A4C0-90E049ECF96F/adLDAP.php"
+		"/Users/manchicken/Library/Caches/Cleanup At Startup/Transmit/39533DB2-BC80-4708-A90C-8B517E25AD83/permissions.php"
 	],
 	"find":
 	{
@@ -936,23 +960,23 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/home/manchicken/Documents/Devel/libmanchicken/src/dynamic_list.c",
+					"file": "/home/manchicken/Documents/Devel/libmanchicken/t/t_dynamic_list.c",
 					"settings":
 					{
-						"buffer_size": 4419,
+						"buffer_size": 4701,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4149,
-								4149
+								3773,
+								3773
 							]
 						],
 						"settings":
@@ -962,25 +986,53 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 385.0,
+						"translation.y": 1683.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/home/manchicken/Documents/Devel/libmanchicken/src/dynamic_list.h",
+					"file": "/home/manchicken/Documents/Devel/libmanchicken/src/dynamic_list.c",
 					"settings":
 					{
-						"buffer_size": 2645,
+						"buffer_size": 4625,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2336,
-								2336
+								1641,
+								1641
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 957.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/manchicken/Documents/Devel/libmanchicken/src/dynamic_list.h",
+					"settings":
+					{
+						"buffer_size": 2783,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2169,
+								2169
 							]
 						],
 						"settings":
@@ -988,35 +1040,7 @@
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 493.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/manchicken/Documents/Devel/libmanchicken/t/t_swansong.c",
-					"settings":
-					{
-						"buffer_size": 3067,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3067,
-								3067
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 663.0,
+						"translation.y": 476.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1044,7 +1068,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 255.0,
+						"translation.y": 238.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1061,8 +1085,8 @@
 						"selection":
 						[
 							[
-								1805,
-								1805
+								1681,
+								1681
 							]
 						],
 						"settings":
@@ -1070,25 +1094,25 @@
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 459.0,
+						"translation.y": 102.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "/home/manchicken/Documents/Devel/libmanchicken/t/t_mutable_string.c",
+					"file": "/home/manchicken/Documents/Devel/libmanchicken/src/dynamic_csv.c",
 					"settings":
 					{
-						"buffer_size": 8903,
+						"buffer_size": 3848,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4070,
-								4070
+								2475,
+								2475
 							]
 						],
 						"settings":
@@ -1098,7 +1122,61 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2499.0,
+						"translation.y": 879.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/home/manchicken/Documents/Devel/libmanchicken/src/dynamic_csv.h",
+					"settings":
+					{
+						"buffer_size": 2978,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2729,
+								2729
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 981.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/home/manchicken/Documents/Devel/libmanchicken/t/t_dynamic_csv.c",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

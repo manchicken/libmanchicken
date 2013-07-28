@@ -83,3 +83,5 @@ csv_document_t* csv_document_init(csv_document_t *doc, FILE *instream, char firs
 void csv_document_free(csv_document_t *doc);
 
 #endif /* __DYNAMIC_CSV_H__ */
+
+

@@ -123,6 +123,8 @@ dynamic_list_t* dynamic_list_append(dynamic_list_t *list, void *item) {
 
   list->items[new_count-1] = item;
   list->count += 1;
+  
+  return list;
 }
 
 void* dynamic_list_get_item(dynamic_list_t *list, unsigned int index) {
