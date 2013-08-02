@@ -65,24 +65,19 @@ CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am_t_dynamic_list_OBJECTS = t_dynamic_list.$(OBJEXT)
 t_dynamic_list_OBJECTS = $(am_t_dynamic_list_OBJECTS)
-t_dynamic_list_LDADD = $(LDADD)
-t_dynamic_list_DEPENDENCIES =
+t_dynamic_list_DEPENDENCIES = ../src/libmanchicken.a
 am_t_findbin_OBJECTS = t_findbin.$(OBJEXT)
 t_findbin_OBJECTS = $(am_t_findbin_OBJECTS)
-t_findbin_LDADD = $(LDADD)
-t_findbin_DEPENDENCIES =
+t_findbin_DEPENDENCIES = ../src/libmanchicken.a
 am_t_mutable_string_OBJECTS = t_mutable_string.$(OBJEXT)
 t_mutable_string_OBJECTS = $(am_t_mutable_string_OBJECTS)
-t_mutable_string_LDADD = $(LDADD)
-t_mutable_string_DEPENDENCIES =
+t_mutable_string_DEPENDENCIES = ../src/libmanchicken.a
 am_t_single_linked_list_OBJECTS = t_single_linked_list.$(OBJEXT)
 t_single_linked_list_OBJECTS = $(am_t_single_linked_list_OBJECTS)
-t_single_linked_list_LDADD = $(LDADD)
-t_single_linked_list_DEPENDENCIES =
+t_single_linked_list_DEPENDENCIES = ../src/libmanchicken.a
 am_t_swansong_OBJECTS = t_swansong.$(OBJEXT)
 t_swansong_OBJECTS = $(am_t_swansong_OBJECTS)
-t_swansong_LDADD = $(LDADD)
-t_swansong_DEPENDENCIES =
+t_swansong_DEPENDENCIES = ../src/libmanchicken.a
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -200,10 +195,15 @@ AM_CFLAGS = --pedantic -Wall -std=c99 -ggdb3 -I../src
 AM_LDFLAGS = -lc -L../src -lmanchicken
 LDADD = -L../src -lmanchicken
 t_mutable_string_SOURCES = t_mutable_string.c
+t_mutable_string_LDADD = ../src/libmanchicken.a
 t_findbin_SOURCES = t_findbin.c
+t_findbin_LDADD = ../src/libmanchicken.a
 t_swansong_SOURCES = t_swansong.c
+t_swansong_LDADD = ../src/libmanchicken.a
 t_dynamic_list_SOURCES = t_dynamic_list.c
+t_dynamic_list_LDADD = ../src/libmanchicken.a
 t_single_linked_list_SOURCES = t_single_linked_list.c
+t_single_linked_list_LDADD = ../src/libmanchicken.a
 all: all-am
 
 .SUFFIXES:

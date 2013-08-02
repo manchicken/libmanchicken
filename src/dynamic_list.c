@@ -153,6 +153,7 @@ void dynamic_list_swap(dynamic_list_t *list, unsigned int first, unsigned int se
     return;
 }
 
+// This is a super simple bubble sort.
 void dynamic_list_bubble_sort(dynamic_list_t *list, short(*compare)(void*,void*)) {
     int outer = 0;
     int inner = 0;
@@ -167,3 +168,22 @@ void dynamic_list_bubble_sort(dynamic_list_t *list, short(*compare)(void*,void*)
     
     return;
 }
+
+void dynamic_list_insertion_sort(dynamic_list_t *list, short(*compare)(void*,void*)) {
+    int left = 0;
+    int right = 0;
+    
+    for (left = 0; left < dynamic_list_count(list); left += 1) {
+        right = left;
+        while (right > 0 && (compare(list->items[right], list->items[right-1]) < 0)) {
+            dynamic_list_swap(list, right, right-1);
+            right -= 1;
+        }
+    }
+    
+    return;
+}
+
+
+
+

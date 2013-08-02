@@ -163,6 +163,33 @@ void t_bubble_sort(void) {
     CU_ASSERT_EQUAL(dynamic_list_get_item(&l, 3), &l2);
 }
 
+void t_insertion_sort(void) {
+    dynamic_list_t l;
+    int l0 = 2;
+    int l1 = 3;
+    int l2 = 6;
+    int l3 = -2;
+    
+    dynamic_list_init_with_capacity(&l, sizeof(int*), 4);
+    
+    dynamic_list_append(&l, &l0);
+    dynamic_list_append(&l, &l1);
+    dynamic_list_append(&l, &l2);
+    dynamic_list_append(&l, &l3);
+    CU_ASSERT_EQUAL(dynamic_list_size(&l), (sizeof(int*) * 4));
+
+//     printf("\nBEFORE SORT...\n");
+//     dynamic_list_foreach(&l, printer_int);
+    dynamic_list_insertion_sort(&l, my_sort_compare);
+//     printf("AFTER SORT...\n");
+//     dynamic_list_foreach(&l, printer_int);
+    
+    CU_ASSERT_EQUAL(dynamic_list_get_item(&l, 0), &l3);
+    CU_ASSERT_EQUAL(dynamic_list_get_item(&l, 1), &l0);
+    CU_ASSERT_EQUAL(dynamic_list_get_item(&l, 2), &l1);
+    CU_ASSERT_EQUAL(dynamic_list_get_item(&l, 3), &l2);
+}
+
 /* MAIN */
 int main(void) {
   CU_pSuite ste = NULL;
@@ -180,6 +207,7 @@ int main(void) {
   ADD_TEST(CU_add_test(ste, "Verify memory allocation...", t_allocation));
   ADD_TEST(CU_add_test(ste, "Verify append...", t_append));
   ADD_TEST(CU_add_test(ste, "Verify bubble sort...", t_bubble_sort));
+  ADD_TEST(CU_add_test(ste, "Verify insertion sort...", t_insertion_sort));
 
   // CU_console_run_tests();
   CU_basic_set_mode(CU_BRM_VERBOSE);

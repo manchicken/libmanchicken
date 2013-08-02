@@ -54,7 +54,9 @@ void* dynamic_list_get_item(dynamic_list_t *list, unsigned int index);
 void dynamic_list_foreach(dynamic_list_t *list, dynamic_list_foreach_func_t foreach);
 
 /* Sorting! */
+void dynamic_list_swap(dynamic_list_t *list, unsigned int first, unsigned int second);
 void dynamic_list_bubble_sort(dynamic_list_t *list, short(*compare)(void*,void*));
+void dynamic_list_insertion_sort(dynamic_list_t *list, short(*compare)(void*,void*));
 
 #define dynamic_list_count(DLIST_PTR)     ((DLIST_PTR)->count)
 #define dynamic_list_size(DLIST_PTR)      ((DLIST_PTR)->size_in_bytes)
