@@ -34,6 +34,7 @@ typedef struct sl_node {
     struct sl_node *next;
 } sl_node_t;
 
-sl_node_t
+sl_node_t *sl_node_init(sl_node_t *node, void* data);
+void sl_node_free(sl_node_t *node)
 
 #endif /* __SINGLE_LINKED_LIST_H__ */
