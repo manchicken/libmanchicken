@@ -115,11 +115,9 @@ dynamic_list_t* dynamic_list_resize(dynamic_list_t *list, size_t num_items) {
 
 dynamic_list_t* dynamic_list_append(dynamic_list_t *list, void *item) {
   size_t new_count = dynamic_list_count(list) + 1;
-  fprintf(stderr, "allocating from %ld to %ld!\n", dynamic_list_count(list), new_count);
   if (!dynamic_list_resize(list, new_count)) {
     return NULL;
   }
-  fprintf(stderr, "Done allocating!");
 
   list->items[new_count-1] = item;
   list->count += 1;
@@ -142,4 +140,30 @@ void dynamic_list_foreach(dynamic_list_t *list, dynamic_list_foreach_func_t fore
   for (idx = 0; idx < dynamic_list_count(list); idx += 1) {
     (*foreach)(list->items[idx]);
   }
+}
+
+void dynamic_list_swap(dynamic_list_t *list, unsigned int first, unsigned int second) {
+    void *keepme = NULL;
+    void **items = list->items;
+    
+    keepme = items[first];
+    items[first] = items[second];
+    items[second] = keepme;
+    
+    return;
+}
+
+void dynamic_list_bubble_sort(dynamic_list_t *list, short(*compare)(void*,void*)) {
+    int outer = 0;
+    int inner = 0;
+    
+    for (outer = dynamic_list_count(list) - 1; outer; outer -= 1) {
+        for (inner = 0; inner < outer; inner += 1) {
+            if ((*compare)(list->items[inner], list->items[inner+1]) > 0) {
+                dynamic_list_swap(list, inner, inner+1);
+            }
+        }
+    }
+    
+    return;
 }

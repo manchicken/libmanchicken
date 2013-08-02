@@ -50,7 +50,8 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 noinst_PROGRAMS = t_mutable_string$(EXEEXT) t_findbin$(EXEEXT) \
-	t_swansong$(EXEEXT) t_dynamic_list$(EXEEXT)
+	t_swansong$(EXEEXT) t_dynamic_list$(EXEEXT) \
+	t_single_linked_list$(EXEEXT)
 subdir = t
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -74,6 +75,10 @@ am_t_mutable_string_OBJECTS = t_mutable_string.$(OBJEXT)
 t_mutable_string_OBJECTS = $(am_t_mutable_string_OBJECTS)
 t_mutable_string_LDADD = $(LDADD)
 t_mutable_string_DEPENDENCIES =
+am_t_single_linked_list_OBJECTS = t_single_linked_list.$(OBJEXT)
+t_single_linked_list_OBJECTS = $(am_t_single_linked_list_OBJECTS)
+t_single_linked_list_LDADD = $(LDADD)
+t_single_linked_list_DEPENDENCIES =
 am_t_swansong_OBJECTS = t_swansong.$(OBJEXT)
 t_swansong_OBJECTS = $(am_t_swansong_OBJECTS)
 t_swansong_LDADD = $(LDADD)
@@ -87,9 +92,11 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(t_dynamic_list_SOURCES) $(t_findbin_SOURCES) \
-	$(t_mutable_string_SOURCES) $(t_swansong_SOURCES)
+	$(t_mutable_string_SOURCES) $(t_single_linked_list_SOURCES) \
+	$(t_swansong_SOURCES)
 DIST_SOURCES = $(t_dynamic_list_SOURCES) $(t_findbin_SOURCES) \
-	$(t_mutable_string_SOURCES) $(t_swansong_SOURCES)
+	$(t_mutable_string_SOURCES) $(t_single_linked_list_SOURCES) \
+	$(t_swansong_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -196,6 +203,7 @@ t_mutable_string_SOURCES = t_mutable_string.c
 t_findbin_SOURCES = t_findbin.c
 t_swansong_SOURCES = t_swansong.c
 t_dynamic_list_SOURCES = t_dynamic_list.c
+t_single_linked_list_SOURCES = t_single_linked_list.c
 all: all-am
 
 .SUFFIXES:
@@ -242,6 +250,9 @@ t_findbin$(EXEEXT): $(t_findbin_OBJECTS) $(t_findbin_DEPENDENCIES) $(EXTRA_t_fin
 t_mutable_string$(EXEEXT): $(t_mutable_string_OBJECTS) $(t_mutable_string_DEPENDENCIES) $(EXTRA_t_mutable_string_DEPENDENCIES) 
 	@rm -f t_mutable_string$(EXEEXT)
 	$(LINK) $(t_mutable_string_OBJECTS) $(t_mutable_string_LDADD) $(LIBS)
+t_single_linked_list$(EXEEXT): $(t_single_linked_list_OBJECTS) $(t_single_linked_list_DEPENDENCIES) $(EXTRA_t_single_linked_list_DEPENDENCIES) 
+	@rm -f t_single_linked_list$(EXEEXT)
+	$(LINK) $(t_single_linked_list_OBJECTS) $(t_single_linked_list_LDADD) $(LIBS)
 t_swansong$(EXEEXT): $(t_swansong_OBJECTS) $(t_swansong_DEPENDENCIES) $(EXTRA_t_swansong_DEPENDENCIES) 
 	@rm -f t_swansong$(EXEEXT)
 	$(LINK) $(t_swansong_OBJECTS) $(t_swansong_LDADD) $(LIBS)
@@ -255,6 +266,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t_dynamic_list.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t_findbin.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t_mutable_string.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t_single_linked_list.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t_swansong.Po@am__quote@
 
 .c.o:

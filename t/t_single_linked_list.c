@@ -27,38 +27,50 @@
  * DAMAGE.
 */
 
-#ifndef __DYNAMIC_LIST_H__
-#define __DYNAMIC_LIST_H__
 
-#include <stddef.h>
+#include <errno.h>
+#include <stdio.h>
 
-typedef struct {
-  void **items;
-  size_t item_size;
-  size_t count_allocated;
-  size_t count;
-  size_t size_in_bytes;
-} dynamic_list_t;
+#include <manchicken.h>
+#include <CUnit/Basic.h>
 
-typedef void(*dynamic_list_foreach_func_t)(void*);
+#define ADD_TEST(X) do { if (!X) { CU_cleanup_registry();return CU_get_error(); } } while (0)
 
-void assert_valid_dynamic_list(dynamic_list_t *list, exitfunc_t result);
+int init_sllist_suite(void) {
+  return 0;
+}
 
-dynamic_list_t* dynamic_list_init(dynamic_list_t *list, size_t item_size);
-dynamic_list_t* dynamic_list_init_with_capacity(dynamic_list_t *list, size_t item_size, size_t num_items);
-void dynamic_list_free(dynamic_list_t *list);
+int clean_sllist1_suite(void) {
+  return 0;
+}
 
-dynamic_list_t* dynamic_list_resize(dynamic_list_t *list, size_t num_items);
-dynamic_list_t* dynamic_list_append(dynamic_list_t *list, void *item);
-void* dynamic_list_get_item(dynamic_list_t *list, unsigned int index);
-void dynamic_list_foreach(dynamic_list_t *list, dynamic_list_foreach_func_t foreach);
+void t_insert() {
+    return;
+}
 
-/* Sorting! */
-void dynamic_list_bubble_sort(dynamic_list_t *list, short(*compare)(void*,void*));
+/* MAIN */
+int main(void) {
+  CU_pSuite ste = NULL;
 
-#define dynamic_list_count(DLIST_PTR)     ((DLIST_PTR)->count)
-#define dynamic_list_size(DLIST_PTR)      ((DLIST_PTR)->size_in_bytes)
-#define dynamic_list_capacity(DLIST_PTR)  ((DLIST_PTR)->count_allocated)
-#define dynamic_list_item_size(DLIST_PTR) ((DLIST_PTR)->item_size)
+  if (CUE_SUCCESS != CU_initialize_registry()) {
+    return CU_get_error();
+  }
 
-#endif /* __DYNAMIC_LIST_H__ */
+  ste = CU_add_suite("sllist_suite", init_sllist_suite, clean_sllist1_suite);
+  if (NULL == ste) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
+  ADD_TEST(CU_add_test(ste, "Verify insert...", t_insert));
+
+  // CU_console_run_tests();
+  CU_basic_set_mode(CU_BRM_VERBOSE);
+  CU_basic_run_suite(ste);
+  CU_basic_show_failures(CU_get_failure_list());
+  CU_cleanup_registry();
+
+  printf("\n");
+
+  return CU_get_error();
+}
