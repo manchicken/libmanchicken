@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Michael D. Stemle, Jr.
+ * Copyright (c) 2013-2015, Michael D. Stemle, Jr.
  * libmanchicken - All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without modification,
@@ -46,7 +46,6 @@ typedef struct {
   char *data;
   size_t _data_size;
   int length;
-  char is_empty;
 } mutable_string_t;
 
 /* Error handling */
