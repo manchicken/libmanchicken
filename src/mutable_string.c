@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2013, Michael D. Stemle, Jr.
+ * Copyright (c) 2013-2015, Michael D. Stemle, Jr.
  * libmanchicken - All rights reserved.
- * 
+	* 
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
  * 
@@ -48,18 +48,23 @@ mutable_string_t* mutable_string_init(mutable_string_t *target) {
 	memset(target, 0, sizeof(mutable_string_t));
 
 	target->data = NULL;
-	target->is_empty = 'Y';
 	target->_data_size = 0;
 	target->length = 0;
 
-	mutable_string_t *to_return = mutable_string_resize(target, (INITIAL_MUTABLE_STRING_ALLOCATION*sizeof(char)));
+	mutable_string_t *to_return = mutable_string_resize(
+		target,
+		(INITIAL_MUTABLE_STRING_ALLOCATION*sizeof(char))
+	);
 
 	memset(target->data, '\0', INITIAL_MUTABLE_STRING_ALLOCATION);
 
 	return to_return;
 }
 
-mutable_string_t* mutable_string_init_with_value(mutable_string_t *target, const char *value) {
+mutable_string_t* mutable_string_init_with_value(
+	mutable_string_t *target, 
+	const char *value
+) {
 	if (!mutable_string_init(target)) {
 		return NULL;
 	}
@@ -119,7 +124,6 @@ void mutable_string_free(mutable_string_t *target) {
 		return;
 
 	free(target->data);
-	target->is_empty = 'Y';
 	target->_data_size = 0;
 	target->length = 0;
 
@@ -140,7 +144,6 @@ mutable_string_t* mutable_string_assign(mutable_string_t *dest, const char *src)
 
 	strcpy(dest->data, src);
 	dest->length = src_length;
-	dest->is_empty = 'N';
 	dest->_data_size = new_size;
 
 	return dest;
@@ -165,17 +168,32 @@ mutable_string_t* mutable_string_append(mutable_string_t *dest, const char *src)
 	strncat(dest->data, src, MAXIMUM_MUTABLE_STRING_SIZE);
 	dest->length = new_len;
 	dest->_data_size = new_size;
-	dest->is_empty = 'N';
 
 	return dest;
 }
 
 int mutable_string_get_length(mutable_string_t *var) {
+	
+	// We keep the length of the string as we go along.
 	return var->length;
+	
 }
 
 short mutable_string_is_empty(mutable_string_t *var) {
-	return (var->is_empty == 'Y');
+	
+	// A NULL data pointer is an empty string.
+	if (var->data == NULL) {
+		return 1;
+	}
+	
+	// A null terminator at the beginning of the character array
+	// is an empty string.
+	if (var->data[0] == '\0') {
+		return 1;
+	}
+	
+	return 0;
+	
 }
 
 char* mutable_string_get_data(mutable_string_t *var) {
