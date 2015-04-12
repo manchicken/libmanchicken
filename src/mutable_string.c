@@ -228,3 +228,37 @@ char mutable_string_char_at(mutable_string_t *subject, int position) {
 
 	return subject->data[position];
 }
+
+mutable_string_t* mutable_string_substring(
+	mutable_string_t *subject,
+	mutable_string_t *destination,
+	int offset,
+	size_t length
+) {
+	char *subject_ptr = NULL;
+	char *destination_ptr = NULL;
+	
+	// See if our offset is valid.
+	if (offset > MUTLEN(subject)) {
+		mutable_string_error = MUTABLE_STRING_ERROR_OUT_OF_RANGE;
+		return NULL;
+	}
+	
+	// First, let's allocate our destination
+	if (! mutable_string_resize(destination, _calculate_new_size(length))) {
+		// Don't need to set the error since mutable_string_resize() does
+		// that already
+		return NULL;
+	}
+	
+	// Now copy the substring
+	subject_ptr = MUTSTR(subject) + offset;
+	destination_ptr = MUTSTR(destination);
+	memcpy(destination_ptr, subject_ptr, length);
+	
+	return destination;
+}
+
+
+
+

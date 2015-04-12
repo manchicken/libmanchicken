@@ -87,5 +87,11 @@ mutable_string_t* mutable_string_copy(mutable_string_t *dest, mutable_string_t *
 
 /* Get bits and pieces of a string */
 char mutable_string_char_at(mutable_string_t *subject, int position);
+mutable_string_t* mutable_string_substring(
+	mutable_string_t *subject,
+	mutable_string_t *destination,
+	int offset,
+	size_t length
+);
 
 #endif
