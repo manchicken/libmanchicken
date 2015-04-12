@@ -36,26 +36,35 @@
 #include <CUnit/Basic.h>
 // #include <CUnit/Console.h>
 
-#define TEST_STR_1							"This is a test"
-#define TEST_STR_TRUNC					"This is"
-#define TEST_STR_TRUNC_LEN			(strlen(TEST_STR_TRUNC)+1)
-#define TEST_STR_GROW					 "This is a super-duper test"
-#define TEST_STR_GROW_LEN			 (strlen(TEST_STR_GROW)+1)
-#define TEST_APPEND_HEAD				"AB"
-#define TEST_APPEND_TAIL				"CD"
+#define TEST_STR_1             "This is a test"
+#define TEST_STR_TRUNC         "This is"
+#define TEST_STR_TRUNC_LEN     (strlen(TEST_STR_TRUNC)+1)
+#define TEST_STR_GROW          "This is a super-duper test"
+#define TEST_STR_GROW_LEN      (strlen(TEST_STR_GROW)+1)
+#define TEST_APPEND_HEAD       "AB"
+#define TEST_APPEND_TAIL       "CD"
 #define TEST_APPEND_WHOLE			 "ABCD"
-#define TEST_APPEND_CHAR				'C'
-#define TEST_APPEND_CHAR_WHOLE	"ABC"
+#define TEST_APPEND_CHAR       'C'
+#define TEST_APPEND_CHAR_WHOLE "ABC"
+#define TEST_SUBSTR1_HEAD      "This"
+#define TEST_SUBSTR1_HEAD_LEN  (strlen(TEST_SUBSTR1_HEAD))
+#define TEST_SUBSTR1_HEAD_OFFS 0
+#define TEST_SUBSTR1_TAIL      "test"
+#define TEST_SUBSTR1_TAIL_LEN  (strlen(TEST_SUBSTR1_HEAD))
+#define TEST_SUBSTR1_TAIL_OFFS (strlen(TEST_STR_1)-TEST_SUBSTR1_TAIL_LEN)
+#define TEST_SUBSTR1_MID       "is a"
+#define TEST_SUBSTR1_MID_OFFS  (TEST_SUBSTR1_HEAD_LEN+1)
+#define TEST_SUBSTR1_MID_LEN   (strlen(TEST_SUBSTR1_MID))
 
 #define ADD_TEST(X) do { if (!X) { CU_cleanup_registry();return CU_get_error(); } } while (0)
 
 int init_mutable_string_suite(void) {
-	fprintf(stderr, "HERE!!! Suite Initted!\n");
+/* 	fprintf(stderr, "HERE!!! Suite Initted!\n"); */
 	return 0;
 }
 
 int clean_mutable_string_suite(void) {
-	fprintf(stderr, "HERE!!! Suite Cleaned!\n");
+/* 	fprintf(stderr, "HERE!!! Suite Cleaned!\n"); */
 	return 0;
 }
 
@@ -320,7 +329,7 @@ void t_mutable_string_append_char(void) {
 }
 
 void t_mutable_string_char_at(void) {
-	fprintf(stderr, "t_mutable_string_char_at\n");
+/* 	fprintf(stderr, "t_mutable_string_char_at\n"); */
 	mutable_string_t a;
 
 	CU_ASSERT_PTR_NOT_NULL(
@@ -369,6 +378,46 @@ void t_mutable_string_char_at(void) {
 	mutable_string_free(&a);
 }
 
+void t_mutable_string_substring(void) {
+	mutable_string_t source;
+	mutable_string_t dest;
+	
+	CU_ASSERT_PTR_NOT_NULL(mutable_string_init(&source));
+	CU_ASSERT_PTR_NOT_NULL(mutable_string_init(&dest));
+
+	CU_ASSERT_PTR_NOT_NULL(mutable_string_assign(&source, TEST_STR_1));
+
+	CU_ASSERT_STRING_EQUAL(MUTSTR(&source), TEST_STR_1);
+
+	// Head substring
+	CU_ASSERT_PTR_NOT_NULL(mutable_string_substring(
+		&source,
+		&dest,
+		TEST_SUBSTR1_HEAD_OFFS,
+		TEST_SUBSTR1_HEAD_LEN
+	));
+	CU_ASSERT_STRING_EQUAL(MUTSTR(&dest), TEST_SUBSTR1_HEAD);
+
+	// Tail substring
+	CU_ASSERT_PTR_NOT_NULL(mutable_string_substring(
+		&source,
+		&dest,
+		TEST_SUBSTR1_TAIL_OFFS,
+		TEST_SUBSTR1_TAIL_LEN
+	));
+	CU_ASSERT_STRING_EQUAL(MUTSTR(&dest), TEST_SUBSTR1_TAIL);
+	
+	// Middle substring
+	CU_ASSERT_PTR_NOT_NULL(mutable_string_substring(
+		&source,
+		&dest,
+		TEST_SUBSTR1_MID_OFFS,
+		TEST_SUBSTR1_MID_LEN
+	));
+	CU_ASSERT_STRING_EQUAL(MUTSTR(&dest), TEST_SUBSTR1_MID);
+
+}
+
 /* MAIN */
 int main(void) {
 	fprintf(stderr, "I'm here!\n");
@@ -396,6 +445,7 @@ int main(void) {
 	ADD_TEST(CU_add_test(ste, "Verify mutable_string_append_mutable_string()...", t_mutable_string_append_mutable_string));
 	ADD_TEST(CU_add_test(ste, "Verify mutable_string_append_char()...", t_mutable_string_append_char));
 	ADD_TEST(CU_add_test(ste, "Verify mutable_string_char_at()...", t_mutable_string_char_at));
+	ADD_TEST(CU_add_test(ste, "Verify mutable_string_substring()...", t_mutable_string_substring));
 	// if (CU_get_error() != CUE_SUCCESS) {
 		fprintf(stderr, "Error creating suite: (%d)%s\n", CU_get_error(), CU_get_error_msg());
 	// }
