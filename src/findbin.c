@@ -50,7 +50,12 @@
 
 mutable_string_t *findbin(mutable_string_t *buf) {
   char pathbuf[1536];
-  unsigned long pathsize = sizeof(pathbuf);
+  
+  #if defined(__APPLE__) && defined(__MACH__)
+    uint32_t pathsize = sizeof(pathbuf);
+  #else
+    unsigned long pathsize = sizeof(pathbuf);
+  #endif
 
   #if defined(__linux__) || defined(BSD)
     ssize_t outsize = 0;

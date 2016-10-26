@@ -64,3 +64,4 @@ void dynamic_list_insertion_sort(dynamic_list_t *list, short(*compare)(void*,voi
 #define dynamic_list_item_size(DLIST_PTR) ((DLIST_PTR)->item_size)
 
 #endif /* __DYNAMIC_LIST_H__ */
+

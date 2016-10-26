@@ -55,6 +55,8 @@
 #define TEST_SUBSTR1_MID       "is a"
 #define TEST_SUBSTR1_MID_OFFS  (TEST_SUBSTR1_HEAD_LEN+1)
 #define TEST_SUBSTR1_MID_LEN   (strlen(TEST_SUBSTR1_MID))
+#define TEST_STR_NUMERIC_1     "123"
+#define TEST_STR_NUMERIC_2     "1.23"
 
 #define ADD_TEST(X) do { if (!X) { CU_cleanup_registry();return CU_get_error(); } } while (0)
 
@@ -418,6 +420,39 @@ void t_mutable_string_substring(void) {
 
 }
 
+void t_mutable_string_parse_int(void) {
+	mutable_string_t a;
+
+	CU_ASSERT_PTR_NOT_NULL(
+		mutable_string_init_with_value(
+			&a, TEST_STR_NUMERIC_1
+		)
+	);
+	CU_ASSERT_EQUAL(
+		mutable_string_parse_int(&a),
+		123
+	);
+	CU_ASSERT_EQUAL(
+		mutable_string_parse_long(&a),
+		123
+	);
+	CU_ASSERT_EQUAL(
+		mutable_string_parse_long_long(&a),
+		123
+	);
+	
+	CU_ASSERT_PTR_NOT_NULL(
+		mutable_string_assign(
+			&a, TEST_STR_NUMERIC_2
+		)
+	);
+	CU_ASSERT_EQUAL(
+		mutable_string_parse_double(&a),
+		1.23
+	);
+	mutable_string_free(&a);
+}
+
 /* MAIN */
 int main(void) {
 	fprintf(stderr, "I'm here!\n");
@@ -446,6 +481,7 @@ int main(void) {
 	ADD_TEST(CU_add_test(ste, "Verify mutable_string_append_char()...", t_mutable_string_append_char));
 	ADD_TEST(CU_add_test(ste, "Verify mutable_string_char_at()...", t_mutable_string_char_at));
 	ADD_TEST(CU_add_test(ste, "Verify mutable_string_substring()...", t_mutable_string_substring));
+	ADD_TEST(CU_add_test(ste, "Verify mutable_string_int64/32/16()...", t_mutable_string_parse_int));
 	// if (CU_get_error() != CUE_SUCCESS) {
 		fprintf(stderr, "Error creating suite: (%d)%s\n", CU_get_error(), CU_get_error_msg());
 	// }
