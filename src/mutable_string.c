@@ -259,6 +259,35 @@ mutable_string_t* mutable_string_substring(
 	return destination;
 }
 
+/* These are a little lazy, but they're useful in a pinch. Needs error checking. */
+int mutable_string_parse_int(mutable_string_t *var) {
+	if (MUTLEN(var) == 0) {
+		mutable_string_error = MUTABLE_STRING_ERROR_NAN;
+		return 0;
+	}
+	return atoi(MUTSTR(var));
+}
 
+long mutable_string_parse_long(mutable_string_t *var) {
+	if (MUTLEN(var) == 0) {
+		mutable_string_error = MUTABLE_STRING_ERROR_NAN;
+		return 0;
+	}
+	return atol(MUTSTR(var));
+}
 
+long long mutable_string_parse_long_long(mutable_string_t *var) {
+	if (MUTLEN(var) == 0) {
+		mutable_string_error = MUTABLE_STRING_ERROR_NAN;
+		return 0;
+	}
+	return atoll(MUTSTR(var));
+}
 
+double mutable_string_parse_double(mutable_string_t *var) {
+	if (MUTLEN(var) == 0) {
+		mutable_string_error = MUTABLE_STRING_ERROR_NAN;
+		return 0;
+	}
+	return atof(MUTSTR(var));
+}

@@ -82,6 +82,12 @@ mutable_string_t* mutable_string_append(mutable_string_t *dest, const char *src)
 mutable_string_t* mutable_string_append_mutable_string(mutable_string_t *dest, mutable_string_t *src);
 mutable_string_t* mutable_string_append_char(mutable_string_t *dest, char src);
 
+/* Parsing into integers */
+int mutable_string_parse_int(mutable_string_t *var);
+long mutable_string_parse_long(mutable_string_t *var);
+long long mutable_string_parse_long_long(mutable_string_t *var);
+double mutable_string_parse_double(mutable_string_t *var);
+
 /* Copy and such */
 mutable_string_t* mutable_string_copy(mutable_string_t *dest, mutable_string_t *src);
 
@@ -95,3 +101,4 @@ mutable_string_t* mutable_string_substring(
 );
 
 #endif
+

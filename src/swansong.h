@@ -42,3 +42,4 @@ void swansong_err(const char *message, exitfunc_t exitfunc);
 #define SWANSONG_NONFATAL &swansong_nonfatal
 
 #endif /* __SWANSONG_H__ */
+

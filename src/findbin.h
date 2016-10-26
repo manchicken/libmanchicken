@@ -35,3 +35,4 @@
 mutable_string_t *findbin(mutable_string_t *buf);
 
 #endif /* __FINDBIN_H__ */
+
