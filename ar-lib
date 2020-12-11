@@ -2,9 +2,9 @@
 # Wrapper for Microsoft lib.exe
 
 me=ar-lib
-scriptversion=2012-01-30.22; # UTC
+scriptversion=2019-07-04.01; # UTC
 
-# Copyright (C) 2010, 2012 Free Software Foundation, Inc.
+# Copyright (C) 2010-2020 Free Software Foundation, Inc.
 # Written by Peter Rosin <peda@lysator.liu.se>.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -18,7 +18,7 @@ scriptversion=2012-01-30.22; # UTC
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # As a special exception to the GNU General Public License, if you
 # distribute this file as part of a program that contains a
@@ -53,7 +53,7 @@ func_file_conv ()
 	  MINGW*)
 	    file_conv=mingw
 	    ;;
-	  CYGWIN*)
+	  CYGWIN* | MSYS*)
 	    file_conv=cygwin
 	    ;;
 	  *)
@@ -65,7 +65,7 @@ func_file_conv ()
 	mingw)
 	  file=`cmd //C echo "$file " | sed -e 's/"\(.*\) " *$/\1/'`
 	  ;;
-	cygwin)
+	cygwin | msys)
 	  file=`cygpath -m "$file" || echo "$file"`
 	  ;;
 	wine)
@@ -153,7 +153,9 @@ action=${action#-}
 delete=
 extract=
 list=
+quick=
 replace=
+index=
 create=
 
 while test -n "$action"
@@ -162,7 +164,10 @@ do
     d*) delete=yes  ;;
     x*) extract=yes ;;
     t*) list=yes    ;;
+    q*) quick=yes   ;;
     r*) replace=yes ;;
+    s*) index=yes   ;;
+    S*)             ;; # the index is always updated implicitly
     c*) create=yes  ;;
     u*)             ;; # TODO: don't ignore the update modifier
     v*)             ;; # TODO: don't ignore the verbose modifier
@@ -173,8 +178,8 @@ do
   action=${action#?}
 done
 
-case $delete$extract$list$replace in
-  yes)
+case $delete$extract$list$quick$replace,$index in
+  yes,* | ,yes)
     ;;
   yesyes*)
     func_error "more than one action specified"
@@ -219,13 +224,14 @@ elif test -n "$extract"; then
       esac
     done
   else
-    $AR -NOLOGO -LIST "$archive" | sed -e 's/\\/\\\\/g' | while read member
-    do
-      $AR -NOLOGO -EXTRACT:"$member" "$archive" || exit $?
-    done
+    $AR -NOLOGO -LIST "$archive" | tr -d '\r' | sed -e 's/\\/\\\\/g' \
+      | while read member
+        do
+          $AR -NOLOGO -EXTRACT:"$member" "$archive" || exit $?
+        done
   fi
 
-elif test -n "$replace"; then
+elif test -n "$quick$replace"; then
   if test ! -f "$orig_archive"; then
     if test -z "$create"; then
       echo "$me: creating $orig_archive"
