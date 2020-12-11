@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2015, Michael D. Stemle, Jr.
+ * Copyright (c) 2013-2020, Michael D. Stemle, Jr.
  * libmanchicken - All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without modification,

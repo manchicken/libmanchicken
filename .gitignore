@@ -6,3 +6,6 @@
 */*.test
 autom4te.cache
 .DS_Store
+.tags*
+
+*.swp

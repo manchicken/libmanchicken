@@ -1,7 +1,7 @@
 # what flags you want to pass to the C compiler & linker
 AM_CFLAGS = --pedantic -Wall -std=c99 -ggdb3 -I../src
-AM_LDFLAGS = -lc -L../src -lmanchicken
-LDADD = -L../src -lmanchicken
+AM_LDFLAGS = -lc -L../src -lmanchicken -lcunit
+LDADD = ${LDFLAGS} -L../src -lmanchicken
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
