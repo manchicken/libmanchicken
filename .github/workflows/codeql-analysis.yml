@@ -20,6 +20,11 @@ on:
   schedule:
     - cron: '41 2 * * 1'
 
+paths-ignore:
+  - '**/*.md'
+  - '**/*.txt'
+  - '**/conftest.c'
+
 jobs:
   analyze:
     name: Analyze
