@@ -16,7 +16,8 @@ If you have any experiences you'd like to share, please let me know and I'd be h
 
 
 ## License ##
-Copyright (c) 2013, Michael D. Stemle, Jr.
+
+Copyright (c) 2013-2020, Michael D. Stemle, Jr.
 libmanchicken - All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

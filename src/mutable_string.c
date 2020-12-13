@@ -1,20 +1,20 @@
 /*
  * Copyright (c) 2013-2020, Michael D. Stemle, Jr.
  * libmanchicken - All rights reserved.
-	* 
+ *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
- * 
+ *
  * Redistributions of source code must retain the above copyright notice, this list
  * of conditions and the following disclaimer.
- * 
+ *
  * Redistributions in binary form must reproduce the above copyright notice, this
  * list of conditions and the following disclaimer in the documentation and/or other
  * materials provided with the distribution.
  * Neither the name of Michael D. Stemle, Jr., notsosoft.net, nor the names of its
  * contributors may be used to endorse or promote products derived from this software
  * without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
@@ -25,269 +25,342 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
-*/
+ */
 
 #define __IN_MUTABLE_STRING_C__
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <mutable_string.h>
+#include "mutable_string.h"
 
 char mutable_string_error;
 
 char mutable_string_get_error() {
-	return mutable_string_error;
+  return mutable_string_error;
 }
 
 inline size_t _calculate_new_size(size_t str_length) {
-	return ((str_length + 1) * sizeof(char));
+  return ((str_length + 1) * sizeof(char));
 }
 
 mutable_string_t* mutable_string_init(mutable_string_t *target) {
-	memset(target, 0, sizeof(mutable_string_t));
+  memset(target, 0, sizeof(mutable_string_t));
 
-	target->data = NULL;
-	target->_data_size = 0;
-	target->length = 0;
+  target->data = NULL;
+  target->_data_size = 0;
+  target->length = 0;
 
-	mutable_string_t *to_return = mutable_string_resize(
-		target,
-		(INITIAL_MUTABLE_STRING_ALLOCATION*sizeof(char))
-	);
+  mutable_string_t *to_return = mutable_string_resize(
+      target,
+      (INITIAL_MUTABLE_STRING_ALLOCATION*sizeof(char))
+      );
 
-	memset(target->data, '\0', INITIAL_MUTABLE_STRING_ALLOCATION);
+  memset(target->data, '\0', INITIAL_MUTABLE_STRING_ALLOCATION);
 
-	return to_return;
+  return to_return;
 }
 
 mutable_string_t* mutable_string_init_with_value(
-	mutable_string_t *target, 
-	const char *value
-) {
-	if (!mutable_string_init(target)) {
-		return NULL;
-	}
+    mutable_string_t *target,
+    const char *value
+    ) {
+  if (!mutable_string_init(target)) {
+    return NULL;
+  }
 
-	if (!mutable_string_assign(target, value)) {
-		return NULL;
-	}
+  if (!mutable_string_assign(target, value)) {
+    return NULL;
+  }
 
-	return target;
+  return target;
 }
 
 mutable_string_t* mutable_string_resize(mutable_string_t* target, size_t new_size)
 {
-	// this check is for security and memory management
-	if (new_size > MAXIMUM_MUTABLE_STRING_SIZE ||
-			new_size <= 0)
-	{
-		mutable_string_error = MUTABLE_STRING_ERROR_TOO_BIG;
-		return NULL;
-	}
+  // this check is for security and memory management
+  if (new_size > MAXIMUM_MUTABLE_STRING_SIZE ||
+      new_size <= 0)
+  {
+    mutable_string_error = MUTABLE_STRING_ERROR_TOO_BIG;
+    return NULL;
+  }
 
-	char *check_ptr = NULL;
+  char *check_ptr = NULL;
 
-	if (target->data == NULL) {
-		check_ptr = (char*)malloc(new_size);
-	} else {
-		check_ptr = (char*)realloc(target->data, new_size);
-	}
+  if (target->data == NULL) {
+    check_ptr = (char*)malloc(new_size);
+  } else {
+    check_ptr = (char*)realloc(target->data, new_size);
+  }
 
-	// If we're out of memory, don't trash the existing value, let the caller handle it!
-	if (check_ptr == NULL && new_size > 0) {
-		mutable_string_error = MUTABLE_STRING_ERROR_OUT_OF_MEMORY;
-		return NULL;
-	}
-	target->data = check_ptr;
+  // If we're out of memory, don't trash the existing value, let the caller handle it!
+  if (check_ptr == NULL && new_size > 0) {
+    mutable_string_error = MUTABLE_STRING_ERROR_OUT_OF_MEMORY;
+    return NULL;
+  }
+  target->data = check_ptr;
 
-	// Handle the string ending stuff...
-	if (new_size < target->_data_size) {
-		target->data[new_size-1] = '\0';
+  // Handle the string ending stuff...
+  if (new_size < target->_data_size) {
+    target->data[new_size-1] = '\0';
 
-	} else if (target->length == 0) {
-		target->data[0] = '\0';
-	}
+  } else if (target->length == 0) {
+    target->data[0] = '\0';
+  }
 
-	target->_data_size = new_size;
+  target->_data_size = new_size;
 
-	if (!mutable_string_is_empty(target)) {
-		target->length = strlen(target->data);
-	}
+  if (!mutable_string_is_empty(target)) {
+    target->length = strlen(target->data);
+  }
 
-	return target;
+  return target;
 }
 
 void mutable_string_free(mutable_string_t *target) {
-	// Sometimes you get garbage...
-	if (!target)
-		return;
+  // Sometimes you get garbage...
+  if (!target) {
+    return;
+  }
 
-	free(target->data);
-	target->_data_size = 0;
-	target->length = 0;
+  free(target->data);
+  target->data = (char*)NULL;
+  target->_data_size = 0;
+  target->length = 0;
 
-	return;
+  return;
 }
 
 mutable_string_t* mutable_string_assign(mutable_string_t *dest, const char *src) {
-	size_t src_length = strlen(src);
-	size_t new_size = _calculate_new_size(src_length);
+  size_t src_length = strlen(src);
+  size_t new_size = _calculate_new_size(src_length);
 
-	// Grow the string if necessary
-	if (new_size > dest->_data_size) {
-		if (mutable_string_resize(dest,new_size) == NULL) {
-			return NULL;
-		}
+  // Grow the string if necessary
+  if (new_size > dest->_data_size) {
+    if (mutable_string_resize(dest,new_size) == NULL) {
+      return NULL;
+    }
 
-	} // We don't shrink the string!
+  } // We don't shrink the string!
 
-	strcpy(dest->data, src);
-	dest->length = src_length;
-	dest->_data_size = new_size;
+  strcpy(dest->data, src);
+  dest->length = src_length;
+  dest->_data_size = new_size;
 
-	return dest;
+  return dest;
 }
 
 mutable_string_t* mutable_string_append(mutable_string_t *dest, const char *src) {
-	if (mutable_string_is_empty(dest)) {
-		return mutable_string_assign(dest, src);
-	}
+  if (mutable_string_is_empty(dest)) {
+    return mutable_string_assign(dest, src);
+  }
 
-	size_t new_len = strlen(src) + dest->length;
-	size_t new_size = _calculate_new_size(new_len);
+  size_t new_len = strlen(src) + dest->length;
+  size_t new_size = _calculate_new_size(new_len);
 
-	// Grow if necessary.
-	if (new_size > dest->_data_size) {
-		if (mutable_string_resize(dest, new_size) == NULL) {
-			return NULL;
-		}
+  // Grow if necessary.
+  if (new_size > dest->_data_size) {
+    if (mutable_string_resize(dest, new_size) == NULL) {
+      return NULL;
+    }
 
-	}
+  }
 
-	strncat(dest->data, src, MAXIMUM_MUTABLE_STRING_SIZE);
-	dest->length = new_len;
-	dest->_data_size = new_size;
+  strncat(dest->data, src, MAXIMUM_MUTABLE_STRING_SIZE);
+  dest->length = new_len;
+  dest->_data_size = new_size;
 
-	return dest;
+  return dest;
 }
 
 int mutable_string_get_length(mutable_string_t *var) {
-	
-	// We keep the length of the string as we go along.
-	return var->length;
-	
+
+  // We keep the length of the string as we go along.
+  return var->length;
+
 }
 
 short mutable_string_is_empty(mutable_string_t *var) {
-	
-	// A NULL data pointer is an empty string.
-	if (var->data == NULL) {
-		return 1;
-	}
-	
-	// A null terminator at the beginning of the character array
-	// is an empty string.
-	if (var->data[0] == '\0') {
-		return 1;
-	}
-	
-	return 0;
-	
+
+  // A NULL data pointer is an empty string.
+  if (var->data == NULL) {
+    return 1;
+  }
+
+  // A null terminator at the beginning of the character array
+  // is an empty string.
+  if (var->data[0] == '\0') {
+    return 1;
+  }
+
+  return 0;
+
 }
 
 char* mutable_string_get_data(mutable_string_t *var) {
-	return var->data;
+  return var->data;
 }
 
 mutable_string_t* mutable_string_copy(mutable_string_t *dest, mutable_string_t *src)
 {
-	return mutable_string_assign(dest, mutable_string_get_data(src));
+  return mutable_string_assign(dest, mutable_string_get_data(src));
 }
 
 mutable_string_t* mutable_string_append_mutable_string(mutable_string_t *dest, mutable_string_t *src) {
-	return mutable_string_append(dest, MUTSTR(src));
+  return mutable_string_append(dest, MUTSTR(src));
 }
 
 mutable_string_t* mutable_string_append_char(mutable_string_t *dest, char src) {
-	char _src[2];
-	sprintf(_src, "%c", src);
+  char _src[2];
+  sprintf(_src, "%c", src);
 
-	return mutable_string_append(dest, _src);
+  return mutable_string_append(dest, _src);
 }
 
 char mutable_string_char_at(mutable_string_t *subject, int position) {
-	if (position < 0) {
-		position = MUTLEN(subject) + position; /* (X>0) + (Y<0) should = (Z>0) */
-	}
+  if (position < 0) {
+    position = MUTLEN(subject) + position; /* (X>0) + (Y<0) should = (Z>0) */
+  }
 
-	if (position < 0 || position > MUTLEN(subject)) {
-		mutable_string_error = MUTABLE_STRING_ERROR_OUT_OF_RANGE;
-		return 0;
-	}
+  if (position < 0 || position > MUTLEN(subject)) {
+    mutable_string_error = MUTABLE_STRING_ERROR_OUT_OF_RANGE;
+    return 0;
+  }
 
-	return subject->data[position];
+  return subject->data[position];
 }
 
 mutable_string_t* mutable_string_substring(
-	mutable_string_t *subject,
-	mutable_string_t *destination,
-	int offset,
-	size_t length
-) {
-	char *subject_ptr = NULL;
-	char *destination_ptr = NULL;
-	
-	// See if our offset is valid.
-	if (offset > MUTLEN(subject)) {
-		mutable_string_error = MUTABLE_STRING_ERROR_OUT_OF_RANGE;
-		return NULL;
-	}
-	
-	// First, let's allocate our destination
-	if (! mutable_string_resize(destination, _calculate_new_size(length))) {
-		// Don't need to set the error since mutable_string_resize() does
-		// that already
-		return NULL;
-	}
-	
-	// Now copy the substring
-	subject_ptr = MUTSTR(subject) + offset;
-	destination_ptr = MUTSTR(destination);
-	memcpy(destination_ptr, subject_ptr, length);
-	
-	return destination;
+    mutable_string_t *subject,
+    mutable_string_t *destination,
+    int offset,
+    size_t length
+    ) {
+  char *subject_ptr = NULL;
+  char *destination_ptr = NULL;
+
+  // See if our offset is valid.
+  if (offset > MUTLEN(subject)) {
+    mutable_string_error = MUTABLE_STRING_ERROR_OUT_OF_RANGE;
+    return NULL;
+  }
+
+  // First, let's allocate our destination
+  if (! mutable_string_resize(destination, _calculate_new_size(length))) {
+    // Don't need to set the error since mutable_string_resize() does
+    // that already
+    return NULL;
+  }
+
+  // Now copy the substring
+  subject_ptr = MUTSTR(subject) + offset;
+  destination_ptr = MUTSTR(destination);
+  memcpy(destination_ptr, subject_ptr, length);
+
+  return destination;
 }
 
 /* These are a little lazy, but they're useful in a pinch. Needs error checking. */
 int mutable_string_parse_int(mutable_string_t *var) {
-	if (MUTLEN(var) == 0) {
-		mutable_string_error = MUTABLE_STRING_ERROR_NAN;
-		return 0;
-	}
-	return atoi(MUTSTR(var));
+  if (MUTLEN(var) == 0) {
+    mutable_string_error = MUTABLE_STRING_ERROR_NAN;
+    return 0;
+  }
+  return atoi(MUTSTR(var));
 }
 
 long mutable_string_parse_long(mutable_string_t *var) {
-	if (MUTLEN(var) == 0) {
-		mutable_string_error = MUTABLE_STRING_ERROR_NAN;
-		return 0;
-	}
-	return atol(MUTSTR(var));
+  if (MUTLEN(var) == 0) {
+    mutable_string_error = MUTABLE_STRING_ERROR_NAN;
+    return 0;
+  }
+  return atol(MUTSTR(var));
 }
 
 long long mutable_string_parse_long_long(mutable_string_t *var) {
-	if (MUTLEN(var) == 0) {
-		mutable_string_error = MUTABLE_STRING_ERROR_NAN;
-		return 0;
-	}
-	return atoll(MUTSTR(var));
+  if (MUTLEN(var) == 0) {
+    mutable_string_error = MUTABLE_STRING_ERROR_NAN;
+    return 0;
+  }
+  return atoll(MUTSTR(var));
 }
 
 double mutable_string_parse_double(mutable_string_t *var) {
-	if (MUTLEN(var) == 0) {
-		mutable_string_error = MUTABLE_STRING_ERROR_NAN;
-		return 0;
-	}
-	return atof(MUTSTR(var));
+  if (MUTLEN(var) == 0) {
+    mutable_string_error = MUTABLE_STRING_ERROR_NAN;
+    return 0;
+  }
+  return atof(MUTSTR(var));
+}
+
+mutable_string_reference_t *mutable_string_reference_init(mutable_string_reference_t *ref) {
+  memset(ref, 0, sizeof(mutable_string_reference_t));
+  ref->target = NULL;
+  ref->ptr = NULL;
+
+  return ref;
+}
+
+void mutable_string_reference_free(mutable_string_reference_t *ref) {
+  ref->target = NULL;
+  ref->ptr = NULL;
+
+  return;
+}
+
+char *mutable_string_reference_get_data(mutable_string_reference_t *ref) {
+  return ref->ptr;
+}
+
+int mutable_string_reference_get_length(mutable_string_reference_t *ref) {
+  return ref->ptrlen;
+}
+
+char is_match(char *start, char *find, int len) {
+  int x = 0;
+  char *start_ptr = start;
+  char *find_ptr = find;
+
+  for (;
+      x < len && *start_ptr != '\0' && *find_ptr != '\0';
+      x += 1, start_ptr++, find_ptr++
+      ) {
+    if (*start_ptr != *find_ptr) {
+      return 0;
+    }
+  }
+
+  return (x == len);
+}
+
+mutable_string_reference_t *mutable_string_find(
+    mutable_string_t *haystack,
+    mutable_string_t *needle,
+    mutable_string_reference_t *ref
+    ) {
+  char *needle_ptr = MUTSTR(needle);
+  char *haystack_ptr = MUTSTR(haystack);
+  int needle_len = MUTLEN(needle);
+  int x = 0;
+
+  // Handle empty string case
+  if (mutable_string_is_empty(haystack) && mutable_string_is_empty(needle)) {
+    ref->target = haystack;
+    ref->ptr = MUTSTR(haystack);
+    ref->ptrlen = MUTLEN(haystack);
+  }
+
+  for (;
+      x < MUTLEN(haystack) && *needle_ptr != '\0' && *haystack_ptr != '\0';
+      haystack_ptr++) {
+    if (is_match(haystack_ptr, needle_ptr, needle_len)) {
+      ref->target = haystack;
+      ref->ptr = haystack_ptr;
+      ref->ptrlen = MUTLEN(haystack) - x;
+      return ref;
+    }
+  }
+
+  return NULL;
 }

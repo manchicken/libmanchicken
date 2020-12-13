@@ -1,20 +1,20 @@
 /*
  * Copyright (c) 2013-2020, Michael D. Stemle, Jr.
  * libmanchicken - All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
- * 
+ *
  * Redistributions of source code must retain the above copyright notice, this list
  * of conditions and the following disclaimer.
- * 
+ *
  * Redistributions in binary form must reproduce the above copyright notice, this
  * list of conditions and the following disclaimer in the documentation and/or other
  * materials provided with the distribution.
  * Neither the name of Michael D. Stemle, Jr., notsosoft.net, nor the names of its
  * contributors may be used to endorse or promote products derived from this software
  * without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
@@ -25,18 +25,18 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
-*/
+ */
 
 #ifndef __MUTABLE_STRING_H__
 #define __MUTABLE_STRING_H__
 
 #ifndef INITIAL_MUTABLE_STRING_ALLOCATION
-	#define INITIAL_MUTABLE_STRING_ALLOCATION	64
+#define INITIAL_MUTABLE_STRING_ALLOCATION 64
 #endif
 
 #ifndef MAXIMUM_MUTABLE_STRING_SIZE
 // 10MiB is big enough
-	#define MAXIMUM_MUTABLE_STRING_SIZE			(10 * 1024 * 1024)
+#define MAXIMUM_MUTABLE_STRING_SIZE     (10 * 1024 * 1024)
 #endif
 
 #include <string.h>
@@ -48,6 +48,12 @@ typedef struct {
   int length;
 } mutable_string_t;
 
+typedef struct {
+  mutable_string_t *target;
+  char *ptr;
+  int ptrlen;
+} mutable_string_reference_t;
+
 /* Error handling */
 #define MUTABLE_STRING_ERROR_OK             ((char)0)
 #define MUTABLE_STRING_ERROR_NAN            ((char)-1)
@@ -55,7 +61,7 @@ typedef struct {
 #define MUTABLE_STRING_ERROR_OUT_OF_MEMORY  ((char)-3)
 #define MUTABLE_STRING_ERROR_TOO_BIG        ((char)-4)
 #ifndef __IN_MUTABLE_STRING_C__
- extern char mutable_string_error;
+extern char mutable_string_error;
 #endif
 char mutable_string_get_error();
 
@@ -94,11 +100,25 @@ mutable_string_t* mutable_string_copy(mutable_string_t *dest, mutable_string_t *
 /* Get bits and pieces of a string */
 char mutable_string_char_at(mutable_string_t *subject, int position);
 mutable_string_t* mutable_string_substring(
-	mutable_string_t *subject,
-	mutable_string_t *destination,
-	int offset,
-	size_t length
-);
+    mutable_string_t *subject,
+    mutable_string_t *destination,
+    int offset,
+    size_t length
+    );
+
+/* Find a substring */
+mutable_string_reference_t *mutable_string_find(
+    mutable_string_t *haystack,
+    mutable_string_t *needle,
+    mutable_string_reference_t *ref
+    );
+
+/* Operate on references */
+mutable_string_reference_t *mutable_string_reference_init(mutable_string_reference_t *ref);
+void mutable_string_reference_free(mutable_string_reference_t *ref);
+char *mutable_string_reference_get_data(mutable_string_reference_t *ref);
+int mutable_string_reference_get_length(mutable_string_reference_t *ref);
+#define MUTREFSTR(X) mutable_string_reference_get_data(X)
 
 #endif
 
